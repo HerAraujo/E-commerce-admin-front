@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import Sidebar from "./components/Sidebar/Sidebar";
+import Orders from "./pages/Orders/Orders";
+import Login from "./pages/Login/Login";
+import NotFound from "./pages/NotFound";
+import Grid from "./components/Sidebar/Grid/Grid";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Sidebar />
+
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/demo-logged" element={<Sidebar />} />
+        <Route path="/demo-logged" element={<Orders />} />
+        <Route path="/demo-grid" element={<Grid />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }
