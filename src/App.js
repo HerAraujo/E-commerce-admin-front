@@ -12,7 +12,7 @@ function App() {
       <Sidebar />
 
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/demo-logged" element={<Sidebar />} />
         <Route path="/demo-logged" element={<Orders />} />
         <Route path="/demo-grid" element={<Grid />} />
