@@ -1,5 +1,6 @@
 import React from "react";
 import "./Sidebar.css";
+import { Link } from "react-router-dom";
 
 function Sidebar() {
   return (
@@ -31,15 +32,14 @@ function Sidebar() {
               class="dropdown-divider mt-4 mb-3 border-gray-700"
             ></li>
             <li class="nav-item">
-              <a
-                href="https://demo.themesberg.com/volt-pro/pages/map.html"
-                target="_blank"
-                class="nav-link d-flex justify-content-between"
+              <Link
+                to={"/products"}
+                className={"nav-link d-flex justify-content-between"}
               >
                 <span>
                   <span class="sidebar-text">Products</span>
                 </span>
-              </a>
+              </Link>
             </li>
             <li
               role="separator"
