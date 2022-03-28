@@ -5,6 +5,7 @@ import Orders from "./pages/Orders/Orders";
 import Login from "./pages/Login/Login";
 import NotFound from "./pages/NotFound";
 import Products from "./pages/Products/Products";
+import ProductForm from "./pages/ProductForm/ProductFrom";
 
 function App() {
   return (
@@ -14,10 +15,9 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/demo-logged" element={<Sidebar />} />
-        <Route path="/demo-logged" element={<Orders />} />
+        {/* <Route path="/demo-orders" element={<Orders />} /> */}
         <Route path="/products" element={<Products />} />
-        <Route path="/create-product" element={<Products />} />
+        <Route path="/create-product" element={<ProductForm />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
