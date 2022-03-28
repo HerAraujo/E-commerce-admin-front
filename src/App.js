@@ -6,6 +6,7 @@ import Login from "./pages/Login/Login";
 import NotFound from "./pages/NotFound";
 import Products from "./pages/Products/Products";
 import ProductForm from "./pages/ProductForm/ProductFrom";
+import Categories from "./pages/Categories/Categories";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         {/* <Route path="/demo-orders" element={<Orders />} /> */}
         <Route path="/products" element={<Products />} />
         <Route path="/create-product" element={<ProductForm />} />
+        <Route path="/category" element={<Categories />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
