@@ -8,6 +8,8 @@ import Products from "./pages/Products/Products";
 import Categories from "./pages/Categories/Categories";
 import ProductCreateFrom from "./pages/ProductCreateForm/ProductCreateFrom";
 import ProductEditFrom from "./pages/ProductEditForm/ProductEditForm";
+import Admins from "./pages/Admins/Admins";
+import NewAdmin from "./pages/Admins/NewAdmin";
 
 function App() {
   return (
@@ -18,6 +20,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         {/* <Route path="/demo-orders" element={<Orders />} /> */}
+        <Route path="/admins" element={<Admins />} />
+        <Route path="/newAdmin" element={<NewAdmin />} />
+        <Route path="/demo-logged" element={<Orders />} />
         <Route path="/products" element={<Products />} />
         <Route path="/category" element={<Categories />} />
         <Route path="/create-product" element={<ProductCreateFrom />} />
