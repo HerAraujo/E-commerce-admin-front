@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Products() {
   const [products, setProducts] = useState([]);
@@ -23,9 +24,11 @@ function Products() {
           <h2 className="h4">Products</h2>
         </div>
         <div className="btn-toolbar mb-2 mb-md-0">
-          <a
-            href="#"
-            className="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+          <Link
+            to={"/create-product"}
+            className={
+              "btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+            }
           >
             <svg
               className="icon icon-xs me-2"
@@ -42,7 +45,7 @@ function Products() {
               ></path>
             </svg>
             New product
-          </a>
+          </Link>
         </div>
       </div>
       <div className="table-settings mb-4">

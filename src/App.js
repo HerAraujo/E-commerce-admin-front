@@ -17,6 +17,7 @@ function App() {
         <Route path="/demo-logged" element={<Sidebar />} />
         <Route path="/demo-logged" element={<Orders />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/create-product" element={<Products />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
