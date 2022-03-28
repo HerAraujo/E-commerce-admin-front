@@ -5,8 +5,9 @@ import Orders from "./pages/Orders/Orders";
 import Login from "./pages/Login/Login";
 import NotFound from "./pages/NotFound";
 import Products from "./pages/Products/Products";
-import ProductForm from "./pages/ProductForm/ProductFrom";
 import Categories from "./pages/Categories/Categories";
+import ProductCreateFrom from "./pages/ProductCreateForm/ProductCreateFrom";
+import ProductEditFrom from "./pages/ProductEditForm/ProductEditForm";
 
 function App() {
   return (
@@ -18,8 +19,9 @@ function App() {
         <Route path="/" element={<Login />} />
         {/* <Route path="/demo-orders" element={<Orders />} /> */}
         <Route path="/products" element={<Products />} />
-        <Route path="/create-product" element={<ProductForm />} />
         <Route path="/category" element={<Categories />} />
+        <Route path="/create-product" element={<ProductCreateFrom />} />
+        <Route path="/edit-product/:id" element={<ProductEditFrom />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

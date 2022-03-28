@@ -1,9 +1,8 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function ProductFrom() {
-  const location = useLocation();
   const navigate = useNavigate();
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
@@ -44,13 +43,7 @@ function ProductFrom() {
               <div className="col-12 d-flex align-items-center justify-content-center">
                 <div className="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                   <div className="text-center text-md-center mb-4 mt-md-0">
-                    {location.pathname === "/create-product" && (
-                      <h1 className="mb-0 h3">New product</h1>
-                    )}
-
-                    {location.pathname === "/update-product" && (
-                      <h1 className="mb-0 h3">Name product</h1>
-                    )}
+                    <h1 className="mb-0 h3">New product</h1>
                   </div>
 
                   <form

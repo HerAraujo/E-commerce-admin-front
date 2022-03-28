@@ -94,12 +94,12 @@ function Products() {
               products.map((product) => (
                 <tr key={product.id}>
                   <td>
-                    <a href="#" className="fw-bold">
-                      {product.id}
-                    </a>
+                    <span> {product.id}</span>
                   </td>
                   <td>
-                    <span className="fw-normal">{product.name}</span>
+                    <Link to={`/edit-product/${product.id}`}>
+                      <span className="fw-normal">{product.name}</span>
+                    </Link>
                   </td>
                   <td>
                     <span className="fw-normal"> {product.price}</span>
@@ -115,14 +115,14 @@ function Products() {
                   <td>
                     <span className="fw-bold"> {product.slug}</span>
                   </td>
-                  <div className="btn-toolbar mb-2 mb-md-0">
-                    <a
-                      href="#"
+                  <td className="btn-toolbar mb-2 mb-md-0">
+                    <Link
+                      to={"/hacer-call-api"}
                       className="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
                     >
                       Delete
-                    </a>
-                  </div>
+                    </Link>
+                  </td>
                 </tr>
               ))}
           </tbody>
