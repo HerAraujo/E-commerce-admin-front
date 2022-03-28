@@ -1,9 +1,37 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function ProductFrom() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [name, setName] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const [price, setPrice] = React.useState();
+  const [stock, setStock] = React.useState();
+  const [slug, setSlug] = React.useState();
+  const [featured, setFeatured] = React.useState("");
+  const slugify = require("slugify");
 
+  const handleOnSubmit = async (ev) => {
+    ev.preventDefault();
+
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `${process.env.REACT_APP_API_URL}/admin/products`,
+        data: {
+          name: name,
+          description: description,
+          price: price,
+          stock: stock,
+          featured: featured,
+          slug: slug,
+        },
+      });
+      navigate("/products");
+    } catch (err) {}
+  };
   return (
     <>
       <main>
@@ -25,7 +53,11 @@ function ProductFrom() {
                     )}
                   </div>
 
-                  <form action="#" className="mt-4 text-start">
+                  <form
+                    action="#"
+                    className="mt-4 text-start"
+                    onSubmit={(ev) => handleOnSubmit(ev)}
+                  >
                     <div className="form-group mb-4">
                       <label htmlFor="name">Name</label>
                       <div className="input-group">
@@ -36,16 +68,23 @@ function ProductFrom() {
                           name="name"
                           autoFocus
                           required
+                          value={name}
+                          onChange={(ev) => {
+                            setName(ev.target.value);
+                            setSlug(slugify(ev.target.value));
+                          }}
                         />
                       </div>
                     </div>
                     <div className="form-group mb-4">
                       <div className="mb-3">
-                        <label htmlFor="disabledTextInput">Slug</label>
+                        <label htmlFor="slug">Slug</label>
                         <input
                           type="text"
-                          id="disabledTextInput"
+                          id="slug"
                           className="form-control"
+                          name="slug"
+                          value={slug}
                           disabled
                         />
                       </div>
@@ -55,8 +94,12 @@ function ProductFrom() {
                         <label htmlFor="textarea">Description</label>
                         <textarea
                           className="form-control"
-                          id="textarea"
+                          id="description"
+                          name="description"
                           rows="4"
+                          required
+                          value={description}
+                          onChange={(ev) => setDescription(ev.target.value)}
                         ></textarea>
                       </div>
                     </div>
@@ -70,6 +113,8 @@ function ProductFrom() {
                           name="price"
                           autoFocus
                           required
+                          value={price}
+                          onChange={(ev) => setPrice(ev.target.value)}
                         />
                       </div>
                     </div>
@@ -83,6 +128,8 @@ function ProductFrom() {
                           name="stock"
                           autoFocus
                           required
+                          value={stock}
+                          onChange={(ev) => setStock(ev.target.value)}
                         />
                       </div>
                     </div>
@@ -91,20 +138,19 @@ function ProductFrom() {
                         <input
                           className="form-check-input"
                           type="checkbox"
-                          value=""
-                          id="defaultCheck10"
+                          id="featured"
+                          name="featured"
+                          value={featured}
+                          onChange={(ev) => setFeatured(ev.target.checked)}
                         />
-                        <label
-                          className="form-check-label"
-                          htmlFor="defaultCheck10"
-                        >
+                        <label className="form-check-label" htmlFor="featured">
                           Featured
                         </label>
                       </div>
                     </div>
                     <div className="d-grid">
                       <button type="submit" className="btn btn-gray-800">
-                        Login
+                        Send
                       </button>
                     </div>
                   </form>
