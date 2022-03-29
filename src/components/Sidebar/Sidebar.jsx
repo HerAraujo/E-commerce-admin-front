@@ -12,54 +12,31 @@ function Sidebar() {
       >
         <div className="sidebar-inner px-4 pt-3">
           <ul className="nav flex-column pt-3 pt-md-0">
-            <li
-              role="separator"
-              className="dropdown-divider mt-4 mb-3 border-gray-700"
-            ></li>
-            <li className="nav-item">
-              <a
-                href="https://demo.themesberg.com/volt-pro/pages/calendar.html"
-                target="_blank"
-                className="nav-link d-flex justify-content-between"
-              >
+            <li role="separator" className="dropdown-divider mt-4 mb-3 border-gray-700"></li>
+            <li class="nav-item">
+              <Link to={"/category"} className={"nav-link d-flex justify-content-between"}>
                 <span>
                   <span className="sidebar-text">Categories</span>
                 </span>
-              </a>
+              </Link>
             </li>
-            <li
-              role="separator"
-              className="dropdown-divider mt-4 mb-3 border-gray-700"
-            ></li>
+            <li role="separator" className="dropdown-divider mt-4 mb-3 border-gray-700"></li>
             <li className="nav-item">
-              <Link
-                to={"/products"}
-                className={"nav-link d-flex justify-content-between"}
-              >
+              <Link to={"/products"} className={"nav-link d-flex justify-content-between"}>
                 <span>
                   <span className="sidebar-text">Products</span>
                 </span>
               </Link>
             </li>
-            <li
-              role="separator"
-              className="dropdown-divider mt-4 mb-3 border-gray-700"
-            ></li>
-            <li className="nav-item">
-              <span
-                className="nav-link  collapsed  d-flex justify-content-between align-items-center"
-                data-bs-toggle="collapse"
-                data-bs-target="#submenu-app"
-              >
+            <li role="separator" className="dropdown-divider mt-4 mb-3 border-gray-700"></li>
+            <li class="nav-item">
+              <Link to={"/admins"} className={"nav-link d-flex justify-content-between"}>
                 <span>
                   <span className="sidebar-text">Administrators</span>
                 </span>
-              </span>
+              </Link>
             </li>
-            <li
-              role="separator"
-              className="dropdown-divider mt-4 mb-3 border-gray-700"
-            ></li>
+            <li role="separator" className="dropdown-divider mt-4 mb-3 border-gray-700"></li>
             <li className="nav-item">
               <span
                 className="nav-link  collapsed  d-flex justify-content-between align-items-center"
@@ -81,10 +58,7 @@ function Sidebar() {
                 <span>Logout</span>
               </a>
             </li>
-            <li
-              role="separator"
-              className="dropdown-divider mt-4 mb-3 border-gray-700"
-            ></li>
+            <li role="separator" className="dropdown-divider mt-4 mb-3 border-gray-700"></li>
           </ul>
         </div>
       </nav>
