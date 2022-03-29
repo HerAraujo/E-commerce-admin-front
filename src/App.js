@@ -13,6 +13,7 @@ import Admins from "./pages/Admins/Admins";
 import NewAdmin from "./pages/Admins/NewAdmin";
 import UpdateAdmin from "./pages/Admins/UpdateAdmin";
 import Images from "./pages/Images/Images";
+import ImageUploadForm from "./pages/ImageUploadForm/ImageUploadForm";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path="/edit-admin/:id" element={<UpdateAdmin />} />
         <Route path="/demo-logged" element={<Orders />} />
         <Route path="/images" element={<Images />} />
+        <Route path="/upload-image" element={<ImageUploadForm />} />
         <Route path="/products" element={<Products />} />
         <Route path="/category" element={<Categories />} />
         <Route path="/newCategory" element={<NewCategory />} />
