@@ -6,6 +6,7 @@ import Login from "./pages/Login/Login";
 import NotFound from "./pages/NotFound";
 import Products from "./pages/Products/Products";
 import Categories from "./pages/Categories/Categories";
+import NewCategory from "./pages/Categories/NewCategory";
 import ProductCreateFrom from "./pages/ProductCreateForm/ProductCreateFrom";
 import ProductEditFrom from "./pages/ProductEditForm/ProductEditForm";
 import Admins from "./pages/Admins/Admins";
@@ -29,6 +30,7 @@ function App() {
         <Route path="/images" element={<Images />} />
         <Route path="/products" element={<Products />} />
         <Route path="/category" element={<Categories />} />
+        <Route path="/newCategory" element={<NewCategory />} />
         <Route path="/create-product" element={<ProductCreateFrom />} />
         <Route path="/edit-product/:id" element={<ProductEditFrom />} />
         <Route path="*" element={<NotFound />} />

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Categories() {
   const [categories, setCategories] = useState([]);
@@ -30,7 +31,10 @@ function Categories() {
           <h2 className="h4">Categories</h2>
         </div>
         <div className="btn-toolbar mb-2 mb-md-0">
-          <a href="#" className="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
+          <Link
+            className="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+            to="/newCategory"
+          >
             <svg
               className="icon icon-xs me-2"
               fill="none"
@@ -45,8 +49,8 @@ function Categories() {
                 d="M12 6v6m0 0v6m0-6h6m-6 0H6"
               ></path>
             </svg>
-            New Category
-          </a>
+            New category
+          </Link>
         </div>
       </div>
       <div className="table-settings mb-4">
