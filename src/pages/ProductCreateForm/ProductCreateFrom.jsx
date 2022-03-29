@@ -163,16 +163,16 @@ function ProductFrom() {
                           onChange={(ev) => setStock(ev.target.value)}
                         />
                       </div>
-                      {errors.price && (
+                      {errors.stock && (
                         <span className="text-danger fw-bold small">Stock is required</span>
                       )}
                     </div>
-                    <div class="mb-4">
-                      <label class="my-1 me-2" forHtml="category">
+                    <div className="mb-4">
+                      <label className="my-1 me-2" htmlFor="category">
                         Category
                       </label>
                       <select
-                        class="form-select"
+                        className="form-select"
                         id="category"
                         aria-label="Default select example"
                         value={category}
@@ -181,7 +181,9 @@ function ProductFrom() {
                         <option value={0}></option>
                         {categories &&
                           categories.map((category) => (
-                            <option value={category.id}>{category.name} </option>
+                            <option key={category.id} value={category.id}>
+                              {category.name}{" "}
+                            </option>
                           ))}
                       </select>
                     </div>

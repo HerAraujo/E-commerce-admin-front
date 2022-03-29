@@ -11,6 +11,7 @@ import ProductEditFrom from "./pages/ProductEditForm/ProductEditForm";
 import Admins from "./pages/Admins/Admins";
 import NewAdmin from "./pages/Admins/NewAdmin";
 import UpdateAdmin from "./pages/Admins/UpdateAdmin";
+import Images from "./pages/Images/Images";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/newAdmin" element={<NewAdmin />} />
         <Route path="/edit-admin/:id" element={<UpdateAdmin />} />
         <Route path="/demo-logged" element={<Orders />} />
+        <Route path="/images" element={<Images />} />
         <Route path="/products" element={<Products />} />
         <Route path="/category" element={<Categories />} />
         <Route path="/create-product" element={<ProductCreateFrom />} />
