@@ -22,7 +22,7 @@ function ProductEditForm() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onChange" });
+  } = useForm();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -126,6 +126,7 @@ function ProductEditForm() {
                         />
                       </div>
                       {errors.name && name.length === 0 && (
+                        // {errors.name && (
                         <span className="text-danger fw-bold mt-1 small">Name is required</span>
                       )}
 
@@ -199,13 +200,13 @@ function ProductEditForm() {
                         <span className="text-danger fw-bold small">Stock is required</span>
                       )}
                     </div>
-                    {/* <div class="mb-4">
-                      <label class="my-1 me-2" forHtml="category">
+                    <div className="mb-4">
+                      <label className="my-1 me-2" htmlFor="category">
                         Category
                       </label>
                       {product && category && (
                         <select
-                          class="form-select"
+                          className="form-select"
                           id="category"
                           aria-label="Default select example"
                           value={category.id}
@@ -222,7 +223,7 @@ function ProductEditForm() {
                             ))}
                         </select>
                       )}
-                    </div> */}
+                    </div>
                     <div className="form-group mb-4">
                       <div className="form-check">
                         <input
