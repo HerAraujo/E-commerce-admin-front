@@ -10,6 +10,7 @@ import ProductCreateFrom from "./pages/ProductCreateForm/ProductCreateFrom";
 import ProductEditFrom from "./pages/ProductEditForm/ProductEditForm";
 import Admins from "./pages/Admins/Admins";
 import NewAdmin from "./pages/Admins/NewAdmin";
+import UpdateAdmin from "./pages/Admins/UpdateAdmin";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         {/* <Route path="/demo-orders" element={<Orders />} /> */}
         <Route path="/admins" element={<Admins />} />
         <Route path="/newAdmin" element={<NewAdmin />} />
+        <Route path="/edit-admin/:id" element={<UpdateAdmin />} />
         <Route path="/demo-logged" element={<Orders />} />
         <Route path="/products" element={<Products />} />
         <Route path="/category" element={<Categories />} />

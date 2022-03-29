@@ -94,9 +94,13 @@ function Admins() {
                       {admin.id}
                     </a>
                   </td>
+
                   <td>
-                    <span className="fw-normal">{admin.firstname}</span>
+                    <Link to={`../edit-admin/${admin.id}`}>
+                      <span className="fw-normal">{admin.firstname}</span>
+                    </Link>
                   </td>
+
                   <td>
                     <span className="fw-normal"> {admin.lastname}</span>
                   </td>
