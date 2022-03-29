@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useForm } from "react-hook-form";
 
 function ProductFrom() {
   const navigate = useNavigate();
@@ -10,11 +11,16 @@ function ProductFrom() {
   const [stock, setStock] = React.useState();
   const [slug, setSlug] = React.useState();
   const [featured, setFeatured] = React.useState("");
+  const [apiStatus, setApiStatus] = React.useState();
   const slugify = require("slugify");
 
-  const handleOnSubmit = async (ev) => {
-    ev.preventDefault();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
+  const onSubmit = async (data) => {
     try {
       const response = await axios({
         method: "POST",
@@ -29,8 +35,11 @@ function ProductFrom() {
         },
       });
       navigate("/products");
-    } catch (err) {}
+    } catch (err) {
+      setApiStatus(err.response.status);
+    }
   };
+
   return (
     <>
       <main>
@@ -46,28 +55,32 @@ function ProductFrom() {
                     <h1 className="mb-0 h3">New product</h1>
                   </div>
 
-                  <form
-                    action="#"
-                    className="mt-4 text-start"
-                    onSubmit={(ev) => handleOnSubmit(ev)}
-                  >
+                  <form action="#" className="mt-4 text-start" onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group mb-4">
                       <label htmlFor="name">Name</label>
                       <div className="input-group">
                         <input
+                          {...register("name", { required: true })}
                           type="text"
                           className="form-control"
                           id="name"
                           name="name"
                           autoFocus
-                          required
                           value={name}
                           onChange={(ev) => {
                             setName(ev.target.value);
                             setSlug(slugify(ev.target.value));
+                            setApiStatus(0);
                           }}
                         />
                       </div>
+                      {errors.name && (
+                        <span className="text-danger fw-bold mt-1 small">Name is required</span>
+                      )}
+
+                      {apiStatus === 409 && (
+                        <div className="text-danger fw-bold mt-1 small">Product already exists</div>
+                      )}
                     </div>
                     <div className="form-group mb-4">
                       <div className="mb-3">
@@ -86,45 +99,54 @@ function ProductFrom() {
                       <div className="my-4">
                         <label htmlFor="textarea">Description</label>
                         <textarea
+                          {...register("description", { required: true })}
                           className="form-control"
                           id="description"
                           name="description"
                           rows="4"
-                          required
                           value={description}
                           onChange={(ev) => setDescription(ev.target.value)}
                         ></textarea>
+                        {errors.description && (
+                          <span className="text-danger fw-bold small">Description is required</span>
+                        )}
                       </div>
                     </div>
                     <div className="form-group mb-4">
                       <label htmlFor="price">Price</label>
                       <div className="input-group">
                         <input
+                          {...register("price", { required: true })}
                           type="number"
                           className="form-control"
                           id="price"
                           name="price"
                           autoFocus
-                          required
                           value={price}
                           onChange={(ev) => setPrice(ev.target.value)}
                         />
                       </div>
+                      {errors.price && (
+                        <span className="text-danger fw-bold small">Price is required</span>
+                      )}
                     </div>
                     <div className="form-group mb-4">
                       <label htmlFor="stock">Stock</label>
                       <div className="input-group">
                         <input
+                          {...register("stock", { required: true })}
                           type="number"
                           className="form-control"
                           id="stock"
                           name="stock"
                           autoFocus
-                          required
                           value={stock}
                           onChange={(ev) => setStock(ev.target.value)}
                         />
                       </div>
+                      {errors.price && (
+                        <span className="text-danger fw-bold small">Stock is required</span>
+                      )}
                     </div>
                     <div className="form-group mb-4">
                       <div className="form-check">

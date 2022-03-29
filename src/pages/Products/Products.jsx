@@ -5,17 +5,25 @@ import { Link } from "react-router-dom";
 function Products() {
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    const getProducts = async () => {
-      const response = await axios({
-        method: "GET",
-        url: `${process.env.REACT_APP_API_URL}/admin/products`,
-      });
-      setProducts(response.data);
-    };
+  const getProducts = async () => {
+    const response = await axios({
+      method: "GET",
+      url: `${process.env.REACT_APP_API_URL}/admin/products`,
+    });
+    setProducts(response.data);
+  };
 
+  useEffect(() => {
     getProducts();
   }, []);
+
+  const handleDeleteClick = async (id) => {
+    const response = await axios({
+      method: "DELETE",
+      url: `${process.env.REACT_APP_API_URL}/admin/products/${id}`,
+    });
+    getProducts();
+  };
 
   return (
     <main className="content text-start">
@@ -26,9 +34,7 @@ function Products() {
         <div className="btn-toolbar mb-2 mb-md-0">
           <Link
             to={"/create-product"}
-            className={
-              "btn btn-sm btn-gray-800 d-inline-flex align-items-center"
-            }
+            className={"btn btn-sm btn-gray-800 d-inline-flex align-items-center"}
           >
             <svg
               className="icon icon-xs me-2"
@@ -68,11 +74,7 @@ function Products() {
                   ></path>
                 </svg>
               </span>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Search "
-              />
+              <input type="text" className="form-control" placeholder="Search " />
             </div>
           </div>
         </div>
@@ -108,20 +110,18 @@ function Products() {
                     <span className="fw-bold"> {product.stock}</span>
                   </td>
                   <td>
-                    <span className="fw-bold">
-                      {product.featured ? "YES" : "NO"}
-                    </span>
+                    <span className="fw-bold">{product.featured ? "YES" : "NO"}</span>
                   </td>
                   <td>
                     <span className="fw-bold"> {product.slug}</span>
                   </td>
-                  <td className="btn-toolbar mb-2 mb-md-0">
-                    <Link
-                      to={"/hacer-call-api"}
-                      className="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
-                    >
+                  <td
+                    className="btn-toolbar mb-2 mb-md-0"
+                    onClick={() => handleDeleteClick(product.id)}
+                  >
+                    <button className="btn btn-sm btn-gray-800 d-inline-flex align-items-center">
                       Delete
-                    </Link>
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -169,10 +169,7 @@ function Products() {
           </nav>
         </div>
       </div>
-      <div
-        className="theme-settings card bg-gray-800 pt-2 collapse"
-        id="theme-settings"
-      ></div>
+      <div className="theme-settings card bg-gray-800 pt-2 collapse" id="theme-settings"></div>
     </main>
   );
 }
