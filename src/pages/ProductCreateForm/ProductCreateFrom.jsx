@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
@@ -11,8 +11,23 @@ function ProductFrom() {
   const [stock, setStock] = React.useState();
   const [slug, setSlug] = React.useState();
   const [featured, setFeatured] = React.useState("");
+  const [category, setCategory] = React.useState();
+  const [categories, setCategories] = React.useState();
   const [apiStatus, setApiStatus] = React.useState();
   const slugify = require("slugify");
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const response = await axios({
+        method: "GET",
+        url: `${process.env.REACT_APP_API_URL}/admin/category`,
+      });
+
+      setCategories(response.data);
+    };
+
+    getCategories();
+  }, []);
 
   const {
     register,
@@ -32,6 +47,7 @@ function ProductFrom() {
           stock: stock,
           featured: featured,
           slug: slug,
+          categoryId: category,
         },
       });
       navigate("/products");
@@ -40,6 +56,9 @@ function ProductFrom() {
     }
   };
 
+  const handleChange = (ev) => {
+    setCategory(ev.target.value);
+  };
   return (
     <>
       <main>
@@ -148,6 +167,24 @@ function ProductFrom() {
                         <span className="text-danger fw-bold small">Stock is required</span>
                       )}
                     </div>
+                    <div class="mb-4">
+                      <label class="my-1 me-2" forHtml="category">
+                        Category
+                      </label>
+                      <select
+                        class="form-select"
+                        id="category"
+                        aria-label="Default select example"
+                        value={category}
+                        onChange={(ev) => handleChange(ev)}
+                      >
+                        <option value={0}></option>
+                        {categories &&
+                          categories.map((category) => (
+                            <option value={category.id}>{category.name} </option>
+                          ))}
+                      </select>
+                    </div>
                     <div className="form-group mb-4">
                       <div className="form-check">
                         <input
@@ -163,6 +200,7 @@ function ProductFrom() {
                         </label>
                       </div>
                     </div>
+
                     <div className="d-grid">
                       <button type="submit" className="btn btn-gray-800">
                         Send

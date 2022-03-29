@@ -13,6 +13,8 @@ function ProductEditForm() {
   const [stock, setStock] = React.useState();
   const [slug, setSlug] = React.useState();
   const [featured, setFeatured] = React.useState("");
+  const [category, setCategory] = React.useState();
+  const [categories, setCategories] = React.useState();
   const [apiStatus, setApiStatus] = React.useState();
   const slugify = require("slugify");
 
@@ -38,10 +40,34 @@ function ProductEditForm() {
       setFeatured(response.data.featured);
     };
 
+    const getCategories = async () => {
+      const response = await axios({
+        method: "GET",
+        url: `${process.env.REACT_APP_API_URL}/admin/category`,
+      });
+
+      setCategories(response.data);
+    };
+
     getProduct();
+    getCategories();
   }, []);
 
+  useEffect(() => {
+    const getCategory = async () => {
+      const response = await axios({
+        method: "GET",
+        url: `${process.env.REACT_APP_API_URL}/admin/category/${product.categoryId}`,
+      });
+
+      setCategory(response.data.category);
+    };
+
+    getCategory();
+  }, [product]);
+
   const onSubmit = async (data) => {
+    console.log(data);
     try {
       const response = await axios({
         method: "PUT",
@@ -59,6 +85,10 @@ function ProductEditForm() {
     } catch (err) {
       setApiStatus(err.response.status);
     }
+  };
+
+  const handleChange = (ev) => {
+    setCategory(ev.target.value);
   };
 
   return (
@@ -169,6 +199,30 @@ function ProductEditForm() {
                         <span className="text-danger fw-bold small">Stock is required</span>
                       )}
                     </div>
+                    {/* <div class="mb-4">
+                      <label class="my-1 me-2" forHtml="category">
+                        Category
+                      </label>
+                      {product && category && (
+                        <select
+                          class="form-select"
+                          id="category"
+                          aria-label="Default select example"
+                          value={category.id}
+                          onChange={(ev) => handleChange(ev)}
+                        >
+                          {product && category.name && (
+                            <option value={product.categoryId}>{category.name}</option>
+                          )}
+                          {categories &&
+                            categories.map((category) => (
+                              <option key={category.id} value={category.id}>
+                                {category.name}
+                              </option>
+                            ))}
+                        </select>
+                      )}
+                    </div> */}
                     <div className="form-group mb-4">
                       <div className="form-check">
                         <input
