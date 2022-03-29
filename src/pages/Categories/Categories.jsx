@@ -99,7 +99,9 @@ function Categories() {
                     </a>
                   </td>
                   <td>
-                    <span className="fw-normal">{category.name}</span>
+                    <Link to={`/edit-category/${category.id}`}>
+                      <span className="fw-normal">{category.name}</span>
+                    </Link>
                   </td>
                   <td>
                     <span className="fw-normal"> {category.photo}</span>
