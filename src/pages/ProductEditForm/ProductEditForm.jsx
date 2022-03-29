@@ -7,6 +7,7 @@ function ProductEditForm() {
   const navigate = useNavigate();
   const params = useParams();
   const [product, setProduct] = React.useState(null);
+  const [featured, setFeatured] = React.useState();
   const [categories, setCategories] = React.useState();
   const [apiStatus, setApiStatus] = React.useState();
   const [name, setName] = React.useState();
@@ -29,6 +30,7 @@ function ProductEditForm() {
       setProduct(response.data);
       setName(response.data.name);
       setSlug(response.data.slug);
+      setFeatured(response.data.featured);
     };
 
     const getCategories = async () => {
@@ -54,8 +56,9 @@ function ProductEditForm() {
           description: data.description,
           price: data.price,
           stock: data.stock,
-          featured: data.featured,
+          featured: featured,
           slug: slug,
+          categoryId: data.categoryId,
         },
       });
       navigate("/products");
@@ -85,7 +88,6 @@ function ProductEditForm() {
                         <label htmlFor="name">Name</label>
                         <div className="input-group">
                           <input
-                            // {...register("name", { required: true })}
                             type="text"
                             className="form-control"
                             id="name"
@@ -118,7 +120,6 @@ function ProductEditForm() {
                             id="slug"
                             className="form-control"
                             name="slug"
-                            // defaultValue={product.slug}
                             value={slug}
                             disabled
                           />
@@ -134,7 +135,6 @@ function ProductEditForm() {
                             name="description"
                             rows="4"
                             defaultValue={product.description}
-                            // onChange={(ev) => setDescription(ev.target.value)}
                           ></textarea>
                           {errors.description && (
                             <span className="text-danger fw-bold small">
@@ -149,12 +149,12 @@ function ProductEditForm() {
                           <input
                             {...register("price", { required: true })}
                             type="number"
+                            step="any"
                             className="form-control"
                             id="price"
                             name="price"
                             autoFocus
                             defaultValue={product.price}
-                            // onChange={(ev) => setPrice(ev.target.value)}
                           />
                         </div>
                         {errors.price && (
@@ -172,7 +172,6 @@ function ProductEditForm() {
                             name="stock"
                             autoFocus
                             defaultValue={product.stock}
-                            // onChange={(ev) => setStock(ev.target.value)}
                           />
                         </div>
                         {errors.stock && (
@@ -185,11 +184,11 @@ function ProductEditForm() {
                         </label>
                         {categories && (
                           <select
+                            {...register("categoryId", { required: true })}
                             className="form-select"
                             id="category"
+                            name="categoryId"
                             aria-label="Default select example"
-                            // value={category.id}
-                            // onChange={(ev) => handleChange(ev)}
                           >
                             {categories &&
                               categories.map((category) =>
@@ -205,7 +204,11 @@ function ProductEditForm() {
                               )}
                           </select>
                         )}
+                        {errors.categoryId && (
+                          <span className="text-danger fw-bold small">Category is required</span>
+                        )}
                       </div>
+
                       <div className="form-group mb-4">
                         <div className="form-check">
                           <input
@@ -214,9 +217,9 @@ function ProductEditForm() {
                             type="checkbox"
                             id="featured"
                             name="featured"
-                            defaultValue={product.featured}
-                            checked={product.featured}
-                            // onChange={(ev) => setFeatured(ev.target.checked)}
+                            value={featured}
+                            checked={featured}
+                            onChange={() => setFeatured(!featured)}
                           />
                           <label className="form-check-label" htmlFor="featured">
                             Featured

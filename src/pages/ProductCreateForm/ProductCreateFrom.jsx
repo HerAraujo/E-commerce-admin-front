@@ -6,12 +6,7 @@ import { useForm } from "react-hook-form";
 function ProductFrom() {
   const navigate = useNavigate();
   const [name, setName] = React.useState("");
-  const [description, setDescription] = React.useState("");
-  const [price, setPrice] = React.useState();
-  const [stock, setStock] = React.useState();
   const [slug, setSlug] = React.useState();
-  const [featured, setFeatured] = React.useState("");
-  const [category, setCategory] = React.useState();
   const [categories, setCategories] = React.useState();
   const [apiStatus, setApiStatus] = React.useState();
   const slugify = require("slugify");
@@ -42,12 +37,12 @@ function ProductFrom() {
         url: `${process.env.REACT_APP_API_URL}/admin/products`,
         data: {
           name: name,
-          description: description,
-          price: price,
-          stock: stock,
-          featured: featured,
+          description: data.description,
+          price: data.price,
+          stock: data.stock,
+          featured: data.featured,
           slug: slug,
-          categoryId: category,
+          categoryId: data.categoryId,
         },
       });
       navigate("/products");
@@ -56,9 +51,6 @@ function ProductFrom() {
     }
   };
 
-  const handleChange = (ev) => {
-    setCategory(ev.target.value);
-  };
   return (
     <>
       <main>
@@ -123,8 +115,6 @@ function ProductFrom() {
                           id="description"
                           name="description"
                           rows="4"
-                          value={description}
-                          onChange={(ev) => setDescription(ev.target.value)}
                         ></textarea>
                         {errors.description && (
                           <span className="text-danger fw-bold small">Description is required</span>
@@ -137,12 +127,11 @@ function ProductFrom() {
                         <input
                           {...register("price", { required: true })}
                           type="number"
+                          step="any"
                           className="form-control"
                           id="price"
                           name="price"
                           autoFocus
-                          value={price}
-                          onChange={(ev) => setPrice(ev.target.value)}
                         />
                       </div>
                       {errors.price && (
@@ -159,8 +148,6 @@ function ProductFrom() {
                           id="stock"
                           name="stock"
                           autoFocus
-                          value={stock}
-                          onChange={(ev) => setStock(ev.target.value)}
                         />
                       </div>
                       {errors.stock && (
@@ -172,30 +159,32 @@ function ProductFrom() {
                         Category
                       </label>
                       <select
+                        {...register("categoryId", { required: true })}
                         className="form-select"
-                        id="category"
+                        id="categoryId"
+                        name="categoryId"
                         aria-label="Default select example"
-                        value={category}
-                        onChange={(ev) => handleChange(ev)}
                       >
-                        <option value={0}></option>
                         {categories &&
                           categories.map((category) => (
                             <option key={category.id} value={category.id}>
-                              {category.name}{" "}
+                              {category.name}
                             </option>
                           ))}
                       </select>
+                      {errors.categoryId && (
+                        <span className="text-danger fw-bold small">Category is required</span>
+                      )}
                     </div>
+
                     <div className="form-group mb-4">
                       <div className="form-check">
                         <input
+                          {...register("featured")}
                           className="form-check-input"
                           type="checkbox"
                           id="featured"
                           name="featured"
-                          value={featured}
-                          onChange={(ev) => setFeatured(ev.target.checked)}
                         />
                         <label className="form-check-label" htmlFor="featured">
                           Featured

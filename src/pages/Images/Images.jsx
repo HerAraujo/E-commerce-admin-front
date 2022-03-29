@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function Images() {
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState(null);
 
   const getImages = async () => {
     const response = await axios({
@@ -89,7 +89,7 @@ function Images() {
             </tr>
           </thead>
           <tbody>
-            {images.length > 0 &&
+            {images &&
               images.map((image) => (
                 <tr key={image.id} style={{ height: "80px" }}>
                   <td>
