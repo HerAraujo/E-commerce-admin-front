@@ -59,6 +59,14 @@ function Sidebar() {
               </a>
             </li>
             <li role="separator" className="dropdown-divider mt-4 mb-3 border-gray-700"></li>
+            <li class="nav-item">
+              <Link to={"/images"} className={"nav-link d-flex justify-content-between"}>
+                <span>
+                  <span className="sidebar-text">Images</span>
+                </span>
+              </Link>
+            </li>
+            <li role="separator" className="dropdown-divider mt-4 mb-3 border-gray-700"></li>
           </ul>
         </div>
       </nav>
