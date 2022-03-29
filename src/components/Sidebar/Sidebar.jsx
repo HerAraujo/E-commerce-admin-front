@@ -1,8 +1,12 @@
 import React from "react";
 import "./Sidebar.css";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 function Sidebar() {
+  const dispatch = useDispatch();
+
+  const adminStore = useSelector((state) => state);
   return (
     <>
       <nav
@@ -50,13 +54,30 @@ function Sidebar() {
             </li>
 
             <li className="nav-item">
-              <a
-                id="btn-logout"
-                href="../../pages/upgrade-to-pro.html"
-                className="btn d-flex align-items-center justify-content-center btn-upgrade-pro"
-              >
-                <span>Logout</span>
-              </a>
+              {adminStore.token && (
+                <a
+                  id="btn-logout"
+                  onClick={() =>
+                    dispatch({
+                      type: "LOGOUT",
+                      payload: "",
+                    })
+                  }
+                  className="btn d-flex align-items-center justify-content-center btn-upgrade-pro"
+                >
+                  <span>Logout</span>
+                </a>
+              )}
+              {!adminStore.token && (
+                <Link to="/">
+                  <a
+                    id="btn-logout"
+                    className="btn d-flex align-items-center justify-content-center btn-upgrade-pro"
+                  >
+                    <span>Login</span>
+                  </a>
+                </Link>
+              )}
             </li>
             <li role="separator" className="dropdown-divider mt-4 mb-3 border-gray-700"></li>
             <li class="nav-item">

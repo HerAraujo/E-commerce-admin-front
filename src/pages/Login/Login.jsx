@@ -1,6 +1,37 @@
-import React from "react";
+import axios from "axios";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `${process.env.REACT_APP_API_URL}/admin/token`,
+        data: {
+          email,
+          password,
+        },
+      });
+      dispatch({
+        type: "LOGIN",
+        payload: response.data,
+      });
+
+      navigate("/admins");
+    } catch (err) {
+      err.response.status === 400 ? alert("Incorrect email or password") : alert(err.response);
+    }
+  };
+
   return (
     <>
       <main>
@@ -15,7 +46,7 @@ function Login() {
                   <div className="text-center text-md-center mb-4 mt-md-0">
                     <h1 className="mb-0 h3">Login</h1>
                   </div>
-                  <form action="#" className="mt-4 text-start">
+                  <form onSubmit={(event) => handleSubmit(event)} className="mt-4 text-start">
                     <div className="form-group mb-4">
                       <label htmlFor="email">Email</label>
                       <div className="input-group">
@@ -31,6 +62,8 @@ function Login() {
                           </svg>
                         </span>
                         <input
+                          onChange={(event) => setEmail(event.target.value)}
+                          value={email}
                           type="email"
                           className="form-control"
                           id="email"
@@ -59,6 +92,8 @@ function Login() {
                             </svg>
                           </span>
                           <input
+                            onChange={(event) => setPassword(event.target.value)}
+                            value={password}
                             type="password"
                             className="form-control"
                             id="password"

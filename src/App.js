@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Orders from "./pages/Orders/Orders";
 import Login from "./pages/Login/Login";
@@ -16,10 +16,10 @@ import Images from "./pages/Images/Images";
 import ImageUploadForm from "./pages/ImageUploadForm/ImageUploadForm";
 
 function App() {
+  const location = useLocation();
   return (
     <div className="App">
-      {/* sidebar luego de login, mostrar sólo cuando esté logueado (similar a shop) */}
-      <Sidebar />
+      {location.pathname !== "/" && <Sidebar />}
 
       <Routes>
         <Route path="/" element={<Login />} />
