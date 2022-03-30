@@ -5,7 +5,7 @@ import "./ProductImages.css";
 
 function ProductImages() {
   const [product, setProduct] = React.useState(null);
-  const [images, setImages] = React.useState(null);
+  const [availableImages, setAvailableImages] = React.useState(null);
   const params = useParams();
 
   useEffect(() => {
@@ -23,19 +23,34 @@ function ProductImages() {
         method: "GET",
         url: `${process.env.REACT_APP_API_URL}/admin/images`,
       });
-      setImages(response.data);
+
+      setAvailableImages(response.data);
     };
 
     getProduct();
     getImages();
+    console.log(product);
   }, []);
 
-  const handleCurrentImageClick = () => {
-    alert("remove form json!");
+  const handleCurrentImageClick = (currentImage) => {
+    setProduct({
+      ...product,
+      images: product.images.filter((image) => image.id !== currentImage.id),
+    });
+
+    availableImages.push(currentImage);
+    setAvailableImages([...availableImages]);
   };
 
-  const handleAvailableImageClick = () => {
-    alert("add to json!");
+  const handleAvailableImageClick = (image) => {
+    product.images.push(image);
+    setProduct({
+      ...product,
+    });
+
+    for (const productImage of product.images) {
+      setAvailableImages([...availableImages.filter((image) => image.name !== productImage.name)]);
+    }
   };
   return (
     <main style={{ overflow: "auto" }}>
@@ -51,31 +66,34 @@ function ProductImages() {
                     {product.images.map((image) => (
                       <div key={image.id} className="col-2 mb-5 ">
                         <img
-                          className="image-gallery"
+                          className="img-thumbnail rounded-circle image-gallery"
                           src={`${process.env.REACT_APP_API_URL}/${image.name}`}
                           alt={image.title}
                           style={{ height: "150px", width: "150px", objectFit: "cover" }}
-                          onClick={(ev) => handleCurrentImageClick(ev)}
+                          onClick={() => handleCurrentImageClick(image)}
                         />
                       </div>
                     ))}
                   </div>
                 </div>
-                {images && (
+                {availableImages && (
                   <div>
                     <h5 className="mt-2 mb-4">Available images</h5>
                     <div className="row ">
-                      {images.map((image) => (
-                        <div key={image.id} className="col-2 mb-5 ">
-                          <img
-                            className="image-gallery"
-                            src={`${process.env.REACT_APP_API_URL}/${image.name}`}
-                            alt={image.title}
-                            style={{ height: "150px", width: "150px", objectFit: "cover" }}
-                            onClick={(ev) => handleAvailableImageClick(ev)}
-                          />
-                        </div>
-                      ))}
+                      {availableImages.map(
+                        (image) =>
+                          !product.images.some((item) => item.name === image.name) && (
+                            <div key={image.id} className="col-2 mb-5">
+                              <img
+                                className="img-thumbnail rounded-circle image-gallery"
+                                src={`${process.env.REACT_APP_API_URL}/${image.name}`}
+                                alt={image.title}
+                                style={{ height: "150px", width: "150px", objectFit: "cover" }}
+                                onClick={() => handleAvailableImageClick(image)}
+                              />
+                            </div>
+                          ),
+                      )}
                     </div>
                   </div>
                 )}

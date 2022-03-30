@@ -1,7 +1,7 @@
-/* .image-gallery {
-  opacity: 0.8;
+.image-gallery {
+  transition: all 0.3s;
 }
 
 .image-gallery:hover {
-  opacity: 1;
-} */
+  transform: scale(1.1);
+}

@@ -95,6 +95,7 @@ function Images() {
                   <td>
                     <Link to={`/edit-product/${image.id}`}>
                       <img
+                        className="img-thumbnail rounded-circle"
                         src={`${process.env.REACT_APP_API_URL}/${image.name}`}
                         alt={image.title}
                         style={{ height: "80px", width: "80px", objectFit: "cover" }}

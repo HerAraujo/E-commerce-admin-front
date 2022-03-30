@@ -17,7 +17,7 @@ function Sidebar() {
         <div className="sidebar-inner px-4 pt-3">
           <ul className="nav flex-column pt-3 pt-md-0">
             <li role="separator" className="dropdown-divider mt-4 mb-3 border-gray-700"></li>
-            <li class="nav-item">
+            <li className="nav-item">
               <Link to={"/category"} className={"nav-link d-flex justify-content-between"}>
                 <span>
                   <span className="sidebar-text">Categories</span>
@@ -33,7 +33,7 @@ function Sidebar() {
               </Link>
             </li>
             <li role="separator" className="dropdown-divider mt-4 mb-3 border-gray-700"></li>
-            <li class="nav-item">
+            <li className="nav-item">
               <Link to={"/admins"} className={"nav-link d-flex justify-content-between"}>
                 <span>
                   <span className="sidebar-text">Administrators</span>
@@ -82,7 +82,7 @@ function Sidebar() {
               )}
             </li>
             <li role="separator" className="dropdown-divider mt-4 mb-3 border-gray-700"></li>
-            <li class="nav-item">
+            <li className="nav-item">
               <Link to={"/images"} className={"nav-link d-flex justify-content-between"}>
                 <span>
                   <span className="sidebar-text">Images</span>
