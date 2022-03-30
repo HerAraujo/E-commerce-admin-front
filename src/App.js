@@ -15,6 +15,7 @@ import NewAdmin from "./pages/Admins/NewAdmin";
 import UpdateAdmin from "./pages/Admins/UpdateAdmin";
 import Images from "./pages/Images/Images";
 import ImageUploadForm from "./pages/ImageUploadForm/ImageUploadForm";
+import ProductImages from "./pages/ProductImages/ProductImages";
 
 function App() {
   const location = useLocation();
@@ -31,6 +32,7 @@ function App() {
         <Route path="/demo-logged" element={<Orders />} />
         <Route path="/images" element={<Images />} />
         <Route path="/upload-image" element={<ImageUploadForm />} />
+        <Route path="/edit-product-images/:id" element={<ProductImages />} />
         <Route path="/products" element={<Products />} />
         <Route path="/category" element={<Categories />} />
         <Route path="/newCategory" element={<NewCategory />} />

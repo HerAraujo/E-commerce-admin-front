@@ -115,6 +115,14 @@ function Products() {
                   <td>
                     <span className="fw-bold"> {product.slug}</span>
                   </td>
+                  <td>
+                    <Link
+                      className="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+                      to={`/edit-product-images/${product.id}`}
+                    >
+                      Images
+                    </Link>
+                  </td>
                   <td
                     className="btn-toolbar mb-2 mb-md-0"
                     onClick={() => handleDeleteClick(product.id)}
