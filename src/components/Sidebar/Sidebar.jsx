@@ -47,9 +47,11 @@ function Sidebar() {
                 data-bs-toggle="collapse"
                 data-bs-target="#submenu-pages"
               >
-                <span>
-                  <span className="sidebar-text">Orders</span>
-                </span>
+                <Link to={"/demo-orders"} className={"nav-link d-flex justify-content-between"}>
+                  <span>
+                    <span className="sidebar-text">Orders</span>
+                  </span>
+                </Link>
               </span>
             </li>
 

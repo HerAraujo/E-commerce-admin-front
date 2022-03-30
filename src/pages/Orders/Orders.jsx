@@ -1,38 +1,152 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 function Orders() {
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const getOrders = async () => {
+      const response = await axios({
+        method: "GET",
+        url: `${process.env.REACT_APP_API_URL}/admin/order`,
+      });
+
+      setOrders(response.data);
+    };
+
+    getOrders();
+  }, [orders]);
+
   return (
-    <>
-      <main class="content text-start">
-        <p>
-          aaaaaaaaaaaaaa It is a long established fact that a reader will be
-          distracted by the readable content of a page when looking at its
-          layout. The point of using Lorem Ipsum is that it has a more-or-less
-          normal distribution of letters, as opposed to using 'Content here,
-          content here', making it look like readable English. Many desktop
-          publishing packages and web page editors now use Lorem Ipsum as their
-          default model text, and a search for 'lorem ipsum' will uncover many
-          web sites still in their infancy. Various versions have evolved over
-          the years, sometimes by accident, sometimes on purpose (injected
-          humour and the like).
-        </p>
-        <h1>halasadsadsadadaaa</h1>
-        <hr />
-        <p>
-          There are many variations of passages of Lorem Ipsum available, but
-          the majority have suffered alteration in some form, by injected
-          humour, or randomised words which don't look even slightly believable.
-          If you are going to use a passage of Lorem Ipsum, you need to be sure
-          there isn't anything embarrassing hidden in the middle of text. All
-          the Lorem Ipsum generators on the Internet tend to repeat predefined
-          chunks as necessary, making this the first true generator on the
-          Internet. It uses a dictionary of over 200 Latin words, combined with
-          a handful of model sentence structures, to generate Lorem Ipsum which
-          looks reasonable. The generated Lorem Ipsum is therefore always free
-          from repetition, injected humour, or non-characteristic words etc.
-        </p>
-      </main>
-    </>
+    <main className="content text-start">
+      <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+        <div className="d-block mb-4 mb-md-0">
+          <h2 className="h4">Orders</h2>
+        </div>
+        <div className="btn-toolbar mb-2 mb-md-0"></div>
+      </div>
+      <div className="table-settings mb-4">
+        <div className="row align-items-center justify-content-between">
+          <div className="col col-md-6 col-lg-3 col-xl-4">
+            <div className="input-group me-2 me-lg-3 fmxw-400">
+              <span className="input-group-text">
+                <svg
+                  className="icon icon-xs"
+                  x-description="Heroicon name: solid/search"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                    clipRule="evenodd"
+                  ></path>
+                </svg>
+              </span>
+              <input type="text" className="form-control" placeholder="Search " />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="card card-body border-0 shadow table-wrapper table-responsive">
+        <table className="table table-hover">
+          <thead>
+            <tr>
+              <th className="border-gray-200">#</th>
+              <th className="border-gray-200">Address</th>
+              <th className="border-gray-200">Products</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order.id}>
+                <td>
+                  <a href="#" className="fw-bold">
+                    {order.id}
+                  </a>
+                </td>
+                <td>
+                  <span className="fw-normal">
+                    <ul>
+                      <li>City: {order.address.city}</li>
+                      <li>Street: {order.address.street}</li>
+                      <li>Port number: {order.address.portNumber}</li>
+                      {order.address.apartmentNumber && (
+                        <li>Apartment number: {order.address.apartmentNumber}</li>
+                      )}
+                    </ul>
+                  </span>
+                </td>
+                <td>
+                  <span className="fw-normal">
+                    {" "}
+                    {order.products.map((product) => (
+                      <ul>
+                        <li>Name: {product.name}</li>
+                        <li>Price: U$S {product.price}</li>
+                        <li>Qty: {product.quantity}</li>
+                      </ul>
+                    ))}
+                  </span>
+                </td>
+                <div className="btn-toolbar mb-2 mb-md-0">
+                  {/* <button
+                      onClick={() => deleteOrder(order.id)}
+                      className="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+                    >
+                      Delete
+                    </button> */}
+                </div>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="card-footer px-3 border-0 d-flex flex-column flex-lg-row align-items-center justify-content-between">
+          <nav aria-label="Page navigation example">
+            <ul className="pagination mb-0">
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  Previous
+                </a>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  1
+                </a>
+              </li>
+              <li className="page-item active">
+                <a className="page-link" href="#">
+                  2
+                </a>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  3
+                </a>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  4
+                </a>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  5
+                </a>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  Next
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div className="theme-settings card bg-gray-800 pt-2 collapse" id="theme-settings"></div>
+    </main>
   );
 }
 
