@@ -29,7 +29,6 @@ function ProductImages() {
 
     getProduct();
     getImages();
-    console.log(product);
   }, []);
 
   const handleCurrentImageClick = (currentImage) => {
@@ -38,8 +37,10 @@ function ProductImages() {
       images: product.images.filter((image) => image.id !== currentImage.id),
     });
 
-    availableImages.push(currentImage);
-    setAvailableImages([...availableImages]);
+    if (!availableImages.some((image) => image.name === currentImage.name)) {
+      availableImages.push(currentImage);
+      setAvailableImages([...availableImages]);
+    }
   };
 
   const handleAvailableImageClick = (image) => {

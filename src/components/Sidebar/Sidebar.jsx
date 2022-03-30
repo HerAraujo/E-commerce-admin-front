@@ -42,17 +42,11 @@ function Sidebar() {
             </li>
             <li role="separator" className="dropdown-divider mt-4 mb-3 border-gray-700"></li>
             <li className="nav-item">
-              <span
-                className="nav-link  collapsed  d-flex justify-content-between align-items-center"
-                data-bs-toggle="collapse"
-                data-bs-target="#submenu-pages"
-              >
-                <Link to={"/demo-orders"} className={"nav-link d-flex justify-content-between"}>
-                  <span>
-                    <span className="sidebar-text">Orders</span>
-                  </span>
-                </Link>
-              </span>
+              <Link to={"/demo-orders"} className={"nav-link d-flex justify-content-between"}>
+                <span>
+                  <span className="sidebar-text">Orders</span>
+                </span>
+              </Link>
             </li>
 
             <li className="nav-item">
