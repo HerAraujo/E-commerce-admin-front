@@ -84,152 +84,165 @@ function ProductEditForm() {
 
                   {product && (
                     <form action="#" className="mt-4 text-start" onSubmit={handleSubmit(onSubmit)}>
-                      <div className="form-group mb-4">
-                        <label htmlFor="name">Name</label>
-                        <div className="input-group">
-                          <input
-                            type="text"
-                            className="form-control"
-                            id="name"
-                            name="name"
-                            autoFocus
-                            value={name}
-                            onChange={(ev) => {
-                              setName(ev.target.value);
-                              setSlug(slugify(ev.target.value));
-                              setApiStatus(0);
-                            }}
-                          />
-                        </div>
-                        {errors.name && (
-                          <span className="text-danger fw-bold mt-1 small">Name is required</span>
-                        )}
+                      <div className="row">
+                        <div className="col-6">
+                          <div className="form-group mb-4">
+                            <label htmlFor="name">Name</label>
+                            <div className="input-group">
+                              <input
+                                type="text"
+                                className="form-control"
+                                id="name"
+                                name="name"
+                                autoFocus
+                                value={name}
+                                onChange={(ev) => {
+                                  setName(ev.target.value);
+                                  setSlug(slugify(ev.target.value));
+                                  setApiStatus(0);
+                                }}
+                              />
+                            </div>
+                            {errors.name && (
+                              <span className="text-danger fw-bold mt-1 small">
+                                Name is required
+                              </span>
+                            )}
 
-                        {apiStatus === 409 && (
-                          <div className="text-danger fw-bold mt-1 small">
-                            Product already exists
+                            {apiStatus === 409 && (
+                              <div className="text-danger fw-bold mt-1 small">
+                                Product already exists
+                              </div>
+                            )}
                           </div>
-                        )}
-                      </div>
-                      <div className="form-group mb-4">
-                        <div className="mb-3">
-                          <label htmlFor="slug">Slug</label>
-                          <input
-                            {...register("slug")}
-                            type="text"
-                            id="slug"
-                            className="form-control"
-                            name="slug"
-                            value={slug}
-                            disabled
-                          />
+                          <div className="form-group mb-4">
+                            <label htmlFor="price">Price</label>
+                            <div className="input-group">
+                              <input
+                                {...register("price", { required: true })}
+                                type="number"
+                                step="any"
+                                className="form-control"
+                                id="price"
+                                name="price"
+                                autoFocus
+                                defaultValue={product.price}
+                              />
+                            </div>
+                            {errors.price && (
+                              <span className="text-danger fw-bold small">Price is required</span>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                      <div className="form-group mb-4">
-                        <div className="my-4">
-                          <label htmlFor="textarea">Description</label>
-                          <textarea
-                            {...register("description", { required: true })}
-                            className="form-control"
-                            id="description"
-                            name="description"
-                            rows="4"
-                            defaultValue={product.description}
-                          ></textarea>
-                          {errors.description && (
-                            <span className="text-danger fw-bold small">
-                              Description is required
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="form-group mb-4">
-                        <label htmlFor="price">Price</label>
-                        <div className="input-group">
-                          <input
-                            {...register("price", { required: true })}
-                            type="number"
-                            step="any"
-                            className="form-control"
-                            id="price"
-                            name="price"
-                            autoFocus
-                            defaultValue={product.price}
-                          />
-                        </div>
-                        {errors.price && (
-                          <span className="text-danger fw-bold small">Price is required</span>
-                        )}
-                      </div>
-                      <div className="form-group mb-4">
-                        <label htmlFor="stock">Stock</label>
-                        <div className="input-group">
-                          <input
-                            {...register("stock", { required: true })}
-                            type="number"
-                            className="form-control"
-                            id="stock"
-                            name="stock"
-                            autoFocus
-                            defaultValue={product.stock}
-                          />
-                        </div>
-                        {errors.stock && (
-                          <span className="text-danger fw-bold small">Stock is required</span>
-                        )}
-                      </div>
-                      <div className="mb-4">
-                        <label className="my-1 me-2" htmlFor="category">
-                          Category
-                        </label>
-                        {categories && (
-                          <select
-                            {...register("categoryId", { required: true })}
-                            className="form-select"
-                            id="category"
-                            name="categoryId"
-                            aria-label="Default select example"
-                          >
-                            {categories &&
-                              categories.map((category) =>
-                                category.id === product.categoryId ? (
-                                  <option selected key={category.id} value={category.id}>
-                                    {category.name}
-                                  </option>
-                                ) : (
-                                  <option key={category.id} value={category.id}>
-                                    {category.name}
-                                  </option>
-                                ),
-                              )}
-                          </select>
-                        )}
-                        {errors.categoryId && (
-                          <span className="text-danger fw-bold small">Category is required</span>
-                        )}
-                      </div>
+                        <div className="col-6">
+                          <div className="form-group mb-4">
+                            <div className="mb-3">
+                              <label htmlFor="slug">Slug</label>
+                              <input
+                                {...register("slug")}
+                                type="text"
+                                id="slug"
+                                className="form-control"
+                                name="slug"
+                                value={slug}
+                                disabled
+                              />
+                            </div>
+                          </div>
 
-                      <div className="form-group mb-4">
-                        <div className="form-check">
-                          <input
-                            {...register("featured")}
-                            className="form-check-input"
-                            type="checkbox"
-                            id="featured"
-                            name="featured"
-                            value={featured}
-                            checked={featured}
-                            onChange={() => setFeatured(!featured)}
-                          />
-                          <label className="form-check-label" htmlFor="featured">
-                            Featured
-                          </label>
+                          <div className="form-group mb-4">
+                            <label htmlFor="stock">Stock</label>
+                            <div className="input-group">
+                              <input
+                                {...register("stock", { required: true })}
+                                type="number"
+                                className="form-control"
+                                id="stock"
+                                name="stock"
+                                autoFocus
+                                defaultValue={product.stock}
+                              />
+                            </div>
+                            {errors.stock && (
+                              <span className="text-danger fw-bold small">Stock is required</span>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                      <div className="d-grid">
-                        <button type="submit" className="btn btn-gray-800">
-                          Send
-                        </button>
+                        <div className="col-12">
+                          <div className="form-group mb-4">
+                            <div className="my-4">
+                              <label htmlFor="textarea">Description</label>
+                              <textarea
+                                {...register("description", { required: true })}
+                                className="form-control"
+                                id="description"
+                                name="description"
+                                rows="4"
+                                defaultValue={product.description}
+                              ></textarea>
+                              {errors.description && (
+                                <span className="text-danger fw-bold small">
+                                  Description is required
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <div className="mb-4">
+                            <label className="my-1 me-2" htmlFor="category">
+                              Category
+                            </label>
+                            {categories && (
+                              <select
+                                {...register("categoryId", { required: true })}
+                                className="form-select"
+                                id="category"
+                                name="categoryId"
+                                aria-label="Default select example"
+                              >
+                                {categories &&
+                                  categories.map((category) =>
+                                    category.id === product.categoryId ? (
+                                      <option selected key={category.id} value={category.id}>
+                                        {category.name}
+                                      </option>
+                                    ) : (
+                                      <option key={category.id} value={category.id}>
+                                        {category.name}
+                                      </option>
+                                    ),
+                                  )}
+                              </select>
+                            )}
+                            {errors.categoryId && (
+                              <span className="text-danger fw-bold small">
+                                Category is required
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="form-group mb-4">
+                            <div className="form-check">
+                              <input
+                                {...register("featured")}
+                                className="form-check-input"
+                                type="checkbox"
+                                id="featured"
+                                name="featured"
+                                value={featured}
+                                checked={featured}
+                                onChange={() => setFeatured(!featured)}
+                              />
+                              <label className="form-check-label" htmlFor="featured">
+                                Featured
+                              </label>
+                            </div>
+                          </div>
+                          <div className="d-grid">
+                            <button type="submit" className="btn btn-gray-800">
+                              Send
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </form>
                   )}
