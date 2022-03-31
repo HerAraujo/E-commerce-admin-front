@@ -12,8 +12,8 @@ function NotFound() {
                   Page not <span className="fw-bolder text-primary">found</span>
                 </h1>
                 <p className="lead my-4">
-                  Oops! Looks like you followed a bad link. If you think this is
-                  a problem with us, please tell us.
+                  Oops! Looks like you followed a bad link. If you think this is a problem with us,
+                  please tell us.
                 </p>
                 <a
                   href="../dashboard/dashboard.html"

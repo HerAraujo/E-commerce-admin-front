@@ -55,31 +55,7 @@ function Images() {
           </Link>
         </div>
       </div>
-      <div className="table-settings mb-4">
-        <div className="row align-items-center justify-content-between">
-          <div className="col col-md-6 col-lg-3 col-xl-4">
-            <div className="input-group me-2 me-lg-3 fmxw-400">
-              <span className="input-group-text">
-                <svg
-                  className="icon icon-xs"
-                  x-description="Heroicon name: solid/search"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-              </span>
-              <input type="text" className="form-control" placeholder="Search " />
-            </div>
-          </div>
-        </div>
-      </div>
+
       <div className="card card-body border-0 shadow table-wrapper table-responsive">
         <table className="table table-hover">
           <thead>
@@ -93,14 +69,12 @@ function Images() {
               images.map((image) => (
                 <tr key={image.id} style={{ height: "80px" }}>
                   <td>
-                    <Link to={`/edit-product/${image.id}`}>
-                      <img
-                        className="img-thumbnail rounded-circle"
-                        src={`${process.env.REACT_APP_API_URL}/${image.name}`}
-                        alt={image.title}
-                        style={{ height: "80px", width: "80px", objectFit: "cover" }}
-                      />
-                    </Link>
+                    <img
+                      className="img-thumbnail rounded-circle"
+                      src={`${process.env.REACT_APP_API_URL}/${image.name}`}
+                      alt={image.title}
+                      style={{ height: "100px", width: "100px", objectFit: "cover" }}
+                    />
                   </td>
 
                   <td>

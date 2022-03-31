@@ -54,32 +54,33 @@ function ProductImages() {
     }
   };
   return (
-    <main style={{ overflow: "auto" }}>
-      <section className="vh-100 mt-5">
-        <div className="container ">
-          <div className="row">
-            {product && (
-              <div className="col-12 text-start">
-                <h2>{product.name}</h2>
-                <div>
-                  <h5 className="mt-5 mb-4">Current images</h5>
-                  <div className="row">
-                    {product.images.map((image) => (
-                      <div key={image.id} className="col-2 mb-5 ">
-                        <img
-                          className="img-thumbnail rounded-circle image-gallery"
-                          src={`${process.env.REACT_APP_API_URL}/${image.name}`}
-                          alt={image.title}
-                          style={{ height: "150px", width: "150px", objectFit: "cover" }}
-                          onClick={() => handleCurrentImageClick(image)}
-                        />
-                      </div>
-                    ))}
-                  </div>
+    <main className="content text-start">
+      {product && (
+        <>
+          <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
+            <div className="d-block mb-4 mb-md-0">
+              <h2 className="h4">{product.name}</h2>
+            </div>
+          </div>
+
+          <div className="card card-body border-0 shadow table-wrapper ">
+            <div className="row">
+              <h5 className="mb-4">Current images</h5>
+              {product.images.map((image) => (
+                <div key={image.id} className="col-2 mb-4">
+                  <img
+                    className="img-thumbnail rounded-circle image-gallery"
+                    src={`${process.env.REACT_APP_API_URL}/${image.name}`}
+                    alt={image.title}
+                    style={{ height: "150px", width: "150px", objectFit: "cover" }}
+                    onClick={() => handleCurrentImageClick(image)}
+                  />
                 </div>
+              ))}
+              <div className="row">
                 {availableImages && (
                   <div>
-                    <h5 className="mt-2 mb-4">Available images</h5>
+                    <h5 className=" mb-4">Available images</h5>
                     <div className="row ">
                       {availableImages.map(
                         (image) =>
@@ -95,19 +96,19 @@ function ProductImages() {
                             </div>
                           ),
                       )}
+                      <div>
+                        <button type="submit" className="btn btn-gray-800">
+                          Confirm
+                        </button>
+                      </div>
                     </div>
                   </div>
                 )}
-                <div>
-                  <button type="submit" className="btn btn-gray-800">
-                    Confirm
-                  </button>
-                </div>
               </div>
-            )}
+            </div>
           </div>
-        </div>
-      </section>
+        </>
+      )}
     </main>
   );
 }
