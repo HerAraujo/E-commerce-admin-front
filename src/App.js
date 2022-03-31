@@ -16,6 +16,7 @@ import UpdateAdmin from "./pages/Admins/UpdateAdmin";
 import Images from "./pages/Images/Images";
 import ImageUploadForm from "./pages/ImageUploadForm/ImageUploadForm";
 import ProductImages from "./pages/ProductImages/ProductImages";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   const location = useLocation();
@@ -25,20 +26,23 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/demo-orders" element={<Orders />} />
-        <Route path="/admins" element={<Admins />} />
-        <Route path="/newAdmin" element={<NewAdmin />} />
-        <Route path="/edit-admin/:id" element={<UpdateAdmin />} />
-        <Route path="/demo-logged" element={<Orders />} />
-        <Route path="/images" element={<Images />} />
-        <Route path="/upload-image" element={<ImageUploadForm />} />
-        <Route path="/edit-product-images/:id" element={<ProductImages />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/category" element={<Categories />} />
-        <Route path="/newCategory" element={<NewCategory />} />
-        <Route path="/edit-category/:id" element={<EditCategory />} />
-        <Route path="/create-product" element={<ProductCreateFrom />} />
-        <Route path="/edit-product/:id" element={<ProductEditFrom />} />
+        <Route path="/demo-orders" element={<PrivateRoute element={<Orders />} />} />
+        <Route path="/admins" element={<PrivateRoute element={<Admins />} />} />
+        <Route path="/newAdmin" element={<PrivateRoute element={<NewAdmin />} />} />
+        <Route path="/edit-admin/:id" element={<PrivateRoute element={<UpdateAdmin />} />} />
+        <Route path="/demo-logged" element={<PrivateRoute element={<Orders />} />} />
+        <Route path="/images" element={<PrivateRoute element={<Images />} />} />
+        <Route path="/upload-image" element={<PrivateRoute element={<ImageUploadForm />} />} />
+        <Route
+          path="/edit-product-images/:id"
+          element={<PrivateRoute element={<ProductImages />} />}
+        />
+        <Route path="/products" element={<PrivateRoute element={<Products />} />} />
+        <Route path="/category" element={<PrivateRoute element={<Categories />} />} />
+        <Route path="/newCategory" element={<PrivateRoute element={<NewCategory />} />} />
+        <Route path="/edit-category/:id" element={<PrivateRoute element={<EditCategory />} />} />
+        <Route path="/create-product" element={<PrivateRoute element={<ProductCreateFrom />} />} />
+        <Route path="/edit-product/:id" element={<PrivateRoute element={<ProductEditFrom />} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
