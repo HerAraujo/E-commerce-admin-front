@@ -16,6 +16,7 @@ function ImageUploadForm() {
     const dataImage = new FormData();
     dataImage.append("image", data.file[0]);
     dataImage.append("title", data.title);
+    console.log(data.file[0]);
 
     try {
       const response = await axios({

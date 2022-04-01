@@ -7,6 +7,7 @@ function ProductImages() {
   const [product, setProduct] = React.useState(null);
   const [availableImages, setAvailableImages] = React.useState(null);
   const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -34,7 +35,7 @@ function ProductImages() {
   const handleCurrentImageClick = (currentImage) => {
     setProduct({
       ...product,
-      images: product.images.filter((image) => image.id !== currentImage.id),
+      images: product.images.filter((image) => image.name !== currentImage.name),
     });
 
     if (!availableImages.some((image) => image.name === currentImage.name)) {
@@ -53,6 +54,21 @@ function ProductImages() {
       setAvailableImages([...availableImages.filter((image) => image.name !== productImage.name)]);
     }
   };
+
+  const handleClick = async (ev) => {
+    ev.preventDefault();
+
+    try {
+      const response = await axios({
+        method: "POST",
+        url: `${process.env.REACT_APP_API_URL}/admin/products/${params.id}/images`,
+        data: {
+          images: product.images,
+        },
+      });
+      navigate("/products");
+    } catch (err) {}
+  };
   return (
     <main className="content text-start">
       {product && (
@@ -67,7 +83,7 @@ function ProductImages() {
             <div className="row">
               <h5 className="mb-4">Current images</h5>
               {product.images.map((image) => (
-                <div key={image.id} className="col-2 mb-4">
+                <div key={image.name} className="col-2 mb-4">
                   <img
                     className="img-thumbnail rounded-circle image-gallery"
                     src={`${process.env.REACT_APP_API_URL}/${image.name}`}
@@ -85,7 +101,7 @@ function ProductImages() {
                       {availableImages.map(
                         (image) =>
                           !product.images.some((item) => item.name === image.name) && (
-                            <div key={image.id} className="col-2 mb-5">
+                            <div key={image.name} className="col-2 mb-5">
                               <img
                                 className="img-thumbnail rounded-circle image-gallery"
                                 src={`${process.env.REACT_APP_API_URL}/${image.name}`}
@@ -97,7 +113,11 @@ function ProductImages() {
                           ),
                       )}
                       <div>
-                        <button type="submit" className="btn btn-gray-800">
+                        <button
+                          type="submit"
+                          className="btn btn-gray-800"
+                          onClick={(ev) => handleClick(ev)}
+                        >
                           Confirm
                         </button>
                       </div>
