@@ -42,7 +42,7 @@ function Sidebar() {
             </li>
             <li role="separator" className="dropdown-divider mt-4 mb-3 border-gray-700"></li>
             <li className="nav-item">
-              <Link to={"/demo-orders"} className={"nav-link d-flex justify-content-between"}>
+              <Link to={"/orders"} className={"nav-link d-flex justify-content-between"}>
                 <span>
                   <span className="sidebar-text">Orders</span>
                 </span>

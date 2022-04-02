@@ -17,6 +17,7 @@ import Images from "./pages/Images/Images";
 import ImageUploadForm from "./pages/ImageUploadForm/ImageUploadForm";
 import ProductImages from "./pages/ProductImages/ProductImages";
 import PrivateRoute from "./components/PrivateRoute";
+import OrderEditStatusForm from "./pages/OrderEditStatusForm";
 
 function App() {
   const location = useLocation();
@@ -26,11 +27,11 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/demo-orders" element={<PrivateRoute element={<Orders />} />} />
+        <Route path="/orders" element={<PrivateRoute element={<Orders />} />} />
+        <Route path="/order/:id" element={<PrivateRoute element={<OrderEditStatusForm />} />} />
         <Route path="/admins" element={<PrivateRoute element={<Admins />} />} />
         <Route path="/newAdmin" element={<PrivateRoute element={<NewAdmin />} />} />
         <Route path="/edit-admin/:id" element={<PrivateRoute element={<UpdateAdmin />} />} />
-        <Route path="/demo-logged" element={<PrivateRoute element={<Orders />} />} />
         <Route path="/images" element={<PrivateRoute element={<Images />} />} />
         <Route path="/upload-image" element={<PrivateRoute element={<ImageUploadForm />} />} />
         <Route

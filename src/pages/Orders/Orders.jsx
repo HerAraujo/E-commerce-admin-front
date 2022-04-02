@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Orders() {
   const [orders, setOrders] = useState([]);
@@ -8,14 +9,14 @@ function Orders() {
     const getOrders = async () => {
       const response = await axios({
         method: "GET",
-        url: `${process.env.REACT_APP_API_URL}/admin/order`,
+        url: `${process.env.REACT_APP_API_URL}/admin/orders`,
       });
 
       setOrders(response.data);
     };
 
     getOrders();
-  }, [orders]);
+  }, []);
 
   return (
     <main className="content text-start">
@@ -63,10 +64,11 @@ function Orders() {
             {orders.map((order) => (
               <tr key={order.id}>
                 <td>
-                  <a href="#" className="fw-bold">
+                  <Link to={`/order/${order.id}`} className="fw-bold">
                     {order.id}
-                  </a>
+                  </Link>
                 </td>
+
                 <td>
                   <span className="fw-normal">
                     <ul>
@@ -79,6 +81,7 @@ function Orders() {
                     </ul>
                   </span>
                 </td>
+
                 <td>
                   <span className="fw-normal">
                     {" "}
