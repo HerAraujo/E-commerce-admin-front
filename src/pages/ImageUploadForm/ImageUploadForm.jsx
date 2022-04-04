@@ -22,6 +22,9 @@ function ImageUploadForm() {
       const response = await axios({
         method: "POST",
         url: `${process.env.REACT_APP_API_URL}/admin/images`,
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
         data: dataImage,
       });
       navigate("/images");

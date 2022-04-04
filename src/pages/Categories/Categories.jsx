@@ -135,12 +135,12 @@ function Categories() {
                   Previous
                 </a>
               </li>
-              <li className="page-item">
+              <li className="page-item active">
                 <a className="page-link" href="#">
                   1
                 </a>
               </li>
-              <li className="page-item active">
+              <li className="page-item">
                 <a className="page-link" href="#">
                   2
                 </a>
