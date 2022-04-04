@@ -84,7 +84,6 @@ function Categories() {
             <tr>
               <th className="border-gray-200">#</th>
               <th className="border-gray-200">Name</th>
-              <th className="border-gray-200">Photo</th>
               <th className="border-gray-200">Description</th>
               <th className="border-gray-200">Slug</th>
             </tr>
@@ -104,10 +103,6 @@ function Categories() {
                     </Link>
                   </td>
                   <td>
-                    <span className="fw-normal"> {category.photo}</span>
-                  </td>
-
-                  <td>
                     <span className="fw-bold">
                       {" "}
                       {category.description.length > 50
@@ -119,10 +114,11 @@ function Categories() {
                     <span className="fw-bold">{category.slug}</span>
                   </td>
 
+                  {/* at first not delete category, resolve delete category with related products*/}
                   <div className="btn-toolbar mb-2 mb-md-0">
                     <button
                       onClick={() => deleteCategory(category.id)}
-                      className="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
+                      className="btn-toolbar btn-sm btn-gray-800 d-inline-flex align-items-center"
                     >
                       Delete
                     </button>

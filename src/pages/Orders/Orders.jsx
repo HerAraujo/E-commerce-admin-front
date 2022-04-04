@@ -86,7 +86,7 @@ function Orders() {
                   <span className="fw-normal">
                     {" "}
                     {order.products.map((product) => (
-                      <ul>
+                      <ul key={order.products.id}>
                         <li>Name: {product.name}</li>
                         <li>Price: U$S {product.price}</li>
                         <li>Qty: {product.quantity}</li>

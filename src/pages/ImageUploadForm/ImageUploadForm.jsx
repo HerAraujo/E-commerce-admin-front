@@ -60,13 +60,13 @@ function ImageUploadForm() {
                       )}
                     </div>
                     <div className="form-group mb-4">
-                      <div class="mb-3">
-                        <label htmlFor="formFile" class="form-label">
+                      <div className="mb-3">
+                        <label htmlFor="formFile" className="form-label">
                           File
                         </label>
                         <input
                           {...register("file", { required: true })}
-                          class="form-control"
+                          className="form-control"
                           type="file"
                           id="file"
                           name="file"

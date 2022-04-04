@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { format } from "date-fns";
+import parseISO from "date-fns/parseISO";
 
 function OrderEditStatusForm() {
   const params = useParams();
@@ -64,7 +66,7 @@ function OrderEditStatusForm() {
               <span className=" mb-4">
                 <strong>Date:</strong>
               </span>{" "}
-              <span>{`${order.createdAt}`}</span>
+              <span>{`${format(parseISO(order.createdAt), "dd/MM/yyyy '-' hh:mm 'hs'")}`}</span>
             </div>
             <div className="detail-group mb-4">
               <span className=" mb-">
