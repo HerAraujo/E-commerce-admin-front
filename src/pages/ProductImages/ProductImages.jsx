@@ -66,6 +66,7 @@ function ProductImages() {
           images: product.images,
         },
       });
+      console.log(product.images);
       navigate("/products");
     } catch (err) {}
   };
@@ -86,7 +87,7 @@ function ProductImages() {
                 <div key={image.name} className="col-2 mb-4">
                   <img
                     className="img-thumbnail rounded-circle image-gallery"
-                    src={`${process.env.REACT_APP_API_URL}/${image.name}`}
+                    src={`${process.env.REACT_APP_BUCKET_URL}/${image.name}`}
                     alt={image.title}
                     style={{ height: "150px", width: "150px", objectFit: "cover" }}
                     onClick={() => handleCurrentImageClick(image)}
@@ -104,7 +105,7 @@ function ProductImages() {
                             <div key={image.name} className="col-2 mb-5">
                               <img
                                 className="img-thumbnail rounded-circle image-gallery"
-                                src={`${process.env.REACT_APP_API_URL}/${image.name}`}
+                                src={`${process.env.REACT_APP_BUCKET_URL}/${image.name}`}
                                 alt={image.title}
                                 style={{ height: "150px", width: "150px", objectFit: "cover" }}
                                 onClick={() => handleAvailableImageClick(image)}

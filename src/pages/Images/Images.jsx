@@ -71,7 +71,7 @@ function Images() {
                   <td>
                     <img
                       className="img-thumbnail rounded-circle"
-                      src={`${process.env.REACT_APP_API_URL}/${image.name}`}
+                      src={`${process.env.REACT_APP_BUCKET_URL}/${image.name}`}
                       alt={image.title}
                       style={{ height: "100px", width: "100px", objectFit: "cover" }}
                     />
