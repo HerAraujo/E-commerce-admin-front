@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Products() {
   const [products, setProducts] = useState([]);
+  const adminStore = useSelector((state) => state);
 
   const getProducts = async () => {
     const response = await axios({
       method: "GET",
       url: `${process.env.REACT_APP_API_URL}/admin/products`,
+      headers: {
+        Authorization: `Bearer ${adminStore.token}`,
+      },
     });
     setProducts(response.data);
   };
@@ -21,6 +26,9 @@ function Products() {
     const response = await axios({
       method: "DELETE",
       url: `${process.env.REACT_APP_API_URL}/admin/products/${id}`,
+      headers: {
+        Authorization: `Bearer ${adminStore.token}`,
+      },
     });
     getProducts();
   };

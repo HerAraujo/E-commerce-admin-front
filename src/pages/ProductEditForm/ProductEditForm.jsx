@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 function ProductEditForm() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ function ProductEditForm() {
   const [name, setName] = React.useState();
   const [slug, setSlug] = React.useState();
   const slugify = require("slugify");
+  const adminStore = useSelector((state) => state);
 
   const {
     register,
@@ -25,6 +27,9 @@ function ProductEditForm() {
       const response = await axios({
         method: "GET",
         url: `${process.env.REACT_APP_API_URL}/products/${params.id}`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
       });
 
       setProduct(response.data);
@@ -36,7 +41,10 @@ function ProductEditForm() {
     const getCategories = async () => {
       const response = await axios({
         method: "GET",
-        url: `${process.env.REACT_APP_API_URL}/admin/category`,
+        url: `${process.env.REACT_APP_API_URL}/admin/categories`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
       });
 
       setCategories(response.data);
@@ -51,6 +59,9 @@ function ProductEditForm() {
       const response = await axios({
         method: "PUT",
         url: `${process.env.REACT_APP_API_URL}/admin/products/${product.id}`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
         data: {
           name: name,
           description: data.description,

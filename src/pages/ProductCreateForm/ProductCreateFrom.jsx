@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 function ProductFrom() {
   const navigate = useNavigate();
@@ -10,12 +11,16 @@ function ProductFrom() {
   const [categories, setCategories] = React.useState();
   const [apiStatus, setApiStatus] = React.useState();
   const slugify = require("slugify");
+  const adminStore = useSelector((state) => state);
 
   useEffect(() => {
     const getCategories = async () => {
       const response = await axios({
         method: "GET",
-        url: `${process.env.REACT_APP_API_URL}/admin/category`,
+        url: `${process.env.REACT_APP_API_URL}/admin/categories`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
       });
 
       setCategories(response.data);
@@ -35,6 +40,9 @@ function ProductFrom() {
       const response = await axios({
         method: "POST",
         url: `${process.env.REACT_APP_API_URL}/admin/products`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
         data: {
           name: name,
           description: data.description,

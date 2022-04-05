@@ -2,18 +2,23 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./ProductImages.css";
+import { useSelector } from "react-redux";
 
 function ProductImages() {
   const [product, setProduct] = React.useState(null);
   const [availableImages, setAvailableImages] = React.useState(null);
   const params = useParams();
   const navigate = useNavigate();
+  const adminStore = useSelector((state) => state);
 
   useEffect(() => {
     const getProduct = async () => {
       const response = await axios({
         method: "GET",
         url: `${process.env.REACT_APP_API_URL}/products/${params.id}`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
       });
 
       setProduct(response.data);
@@ -23,6 +28,9 @@ function ProductImages() {
       const response = await axios({
         method: "GET",
         url: `${process.env.REACT_APP_API_URL}/admin/images`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
       });
 
       setAvailableImages(response.data);
@@ -45,7 +53,10 @@ function ProductImages() {
   };
 
   const handleAvailableImageClick = (image) => {
+    if (!product.images) product.images = [];
+
     product.images.push(image);
+
     setProduct({
       ...product,
     });
@@ -62,11 +73,14 @@ function ProductImages() {
       const response = await axios({
         method: "POST",
         url: `${process.env.REACT_APP_API_URL}/admin/products/${params.id}/images`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
         data: {
           images: product.images,
         },
       });
-      console.log(product.images);
+
       navigate("/products");
     } catch (err) {}
   };
@@ -79,29 +93,42 @@ function ProductImages() {
               <h2 className="h4">{product.name}</h2>
             </div>
           </div>
-
           <div className="card card-body border-0 shadow table-wrapper ">
             <div className="row">
               <h5 className="mb-4">Current images</h5>
-              {product.images.map((image) => (
-                <div key={image.name} className="col-2 mb-4">
-                  <img
-                    className="img-thumbnail rounded-circle image-gallery"
-                    src={`${process.env.REACT_APP_BUCKET_URL}/${image.name}`}
-                    alt={image.title}
-                    style={{ height: "150px", width: "150px", objectFit: "cover" }}
-                    onClick={() => handleCurrentImageClick(image)}
-                  />
-                </div>
-              ))}
+              {product.images &&
+                product.images.map((image) => (
+                  <div key={image.name} className="col-2 mb-4">
+                    <img
+                      className="img-thumbnail rounded-circle image-gallery"
+                      src={`${process.env.REACT_APP_BUCKET_URL}/${image.name}`}
+                      alt={image.title}
+                      style={{ height: "150px", width: "150px", objectFit: "cover" }}
+                      onClick={() => handleCurrentImageClick(image)}
+                    />
+                  </div>
+                ))}
               <div className="row">
                 {availableImages && (
                   <div>
                     <h5 className=" mb-4">Available images</h5>
                     <div className="row ">
-                      {availableImages.map(
-                        (image) =>
-                          !product.images.some((item) => item.name === image.name) && (
+                      {product.images
+                        ? availableImages.map(
+                            (image) =>
+                              !product.images.some((item) => item.name === image.name) && (
+                                <div key={image.name} className="col-2 mb-5">
+                                  <img
+                                    className="img-thumbnail rounded-circle image-gallery"
+                                    src={`${process.env.REACT_APP_BUCKET_URL}/${image.name}`}
+                                    alt={image.title}
+                                    style={{ height: "150px", width: "150px", objectFit: "cover" }}
+                                    onClick={() => handleAvailableImageClick(image)}
+                                  />
+                                </div>
+                              ),
+                          )
+                        : availableImages.map((image) => (
                             <div key={image.name} className="col-2 mb-5">
                               <img
                                 className="img-thumbnail rounded-circle image-gallery"
@@ -111,8 +138,8 @@ function ProductImages() {
                                 onClick={() => handleAvailableImageClick(image)}
                               />
                             </div>
-                          ),
-                      )}
+                          ))}
+
                       <div>
                         <button
                           type="submit"
