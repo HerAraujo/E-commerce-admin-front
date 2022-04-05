@@ -89,24 +89,16 @@ function Orders() {
 
                 <td>
                   <span className="fw-normal">
-                    {" "}
-                    {order.products.map((product) => (
-                      <ul key={product.id}>
-                        <li>Name: {product.name}</li>
-                        <li>Price: U$S {product.price}</li>
-                        <li>Qty: {product.quantity}</li>
-                      </ul>
-                    ))}
+                    {order.products &&
+                      order.products.map((product) => (
+                        <ul key={product.id}>
+                          <li>Name: {product.name}</li>
+                          <li>Price: U$S {product.price}</li>
+                          <li>Qty: {product.quantity}</li>
+                        </ul>
+                      ))}
                   </span>
                 </td>
-                <div className="btn-toolbar mb-2 mb-md-0">
-                  {/* <button
-                      onClick={() => deleteOrder(order.id)}
-                      className="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
-                    >
-                      Delete
-                    </button> */}
-                </div>
               </tr>
             ))}
           </tbody>
