@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function NewAdmin() {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const adminStore = useSelector((state) => state);
 
   const navigate = useNavigate();
   const createAdmin = async (event) => {
@@ -14,6 +16,9 @@ function NewAdmin() {
     await axios({
       method: "POST",
       url: `${process.env.REACT_APP_API_URL}/admin`,
+      headers: {
+        Authorization: `Bearer ${adminStore.token}`,
+      },
       data: {
         firstname: firstname,
         lastname: lastname,

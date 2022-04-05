@@ -1,25 +1,33 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Admins() {
   const [admins, setAdmins] = useState([]);
+  const adminStore = useSelector((state) => state);
 
   useEffect(() => {
     const getAdmins = async () => {
       const response = await axios({
         method: "GET",
         url: `${process.env.REACT_APP_API_URL}/admin`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
       });
       setAdmins(response.data);
     };
 
     getAdmins();
-  }, [admins]);
+  }, []);
   const deleteAdmin = async (adminId) => {
     await axios({
       method: "DELETE",
       url: `${process.env.REACT_APP_API_URL}/admin/${adminId}`,
+      headers: {
+        Authorization: `Bearer ${adminStore.token}`,
+      },
     });
   };
 

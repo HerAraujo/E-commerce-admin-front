@@ -1,26 +1,29 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function UpdateAdmin() {
   const navigate = useNavigate();
   const params = useParams();
+  const adminStore = useSelector((state) => state);
 
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   useEffect(() => {
     const getAdmin = async () => {
       const response = await axios({
         method: "GET",
-        url: `${process.env.REACT_APP_API_URL}/admin/${params.id}`,
+        url: `${process.env.REACT_APP_API_URL}/admin/admin/${params.id}`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
       });
       setFirstname(response.data.firstname);
       setLastname(response.data.lastname);
       setEmail(response.data.email);
-      setPassword(response.data.password);
     };
     getAdmin();
   }, []);
@@ -31,6 +34,9 @@ function UpdateAdmin() {
       await axios({
         method: "PATCH",
         url: `${process.env.REACT_APP_API_URL}/admin/${params.id}`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
         data: {
           firstname,
           lastname,
@@ -38,9 +44,7 @@ function UpdateAdmin() {
         },
       });
       navigate("/admins");
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (
