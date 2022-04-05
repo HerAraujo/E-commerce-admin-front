@@ -2,9 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 function ImageUploadForm() {
   const navigate = useNavigate();
+  const adminStore = useSelector((state) => state);
 
   const {
     register,
@@ -16,7 +18,6 @@ function ImageUploadForm() {
     const dataImage = new FormData();
     dataImage.append("image", data.file[0]);
     dataImage.append("title", data.title);
-    console.log(data.file[0]);
 
     try {
       const response = await axios({
@@ -24,6 +25,7 @@ function ImageUploadForm() {
         url: `${process.env.REACT_APP_API_URL}/admin/images`,
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${adminStore.token}`,
         },
         data: dataImage,
       });

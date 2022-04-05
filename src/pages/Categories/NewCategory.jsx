@@ -2,16 +2,16 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 function CategoryForm() {
   const navigate = useNavigate();
   const [name, setName] = React.useState("");
   const [description, setDescription] = React.useState("");
-
   const [slug, setSlug] = React.useState();
-
   const [apiStatus, setApiStatus] = React.useState();
   const slugify = require("slugify");
+  const adminStore = useSelector((state) => state);
 
   const {
     register,
@@ -23,7 +23,10 @@ function CategoryForm() {
     try {
       await axios({
         method: "POST",
-        url: `${process.env.REACT_APP_API_URL}/admin/category`,
+        url: `${process.env.REACT_APP_API_URL}/admin/categories`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
         data: {
           name: name,
           description: description,

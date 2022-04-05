@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 function EditCategory() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ function EditCategory() {
   const [slug, setSlug] = React.useState();
   const [apiStatus, setApiStatus] = React.useState();
   const slugify = require("slugify");
+  const adminStore = useSelector((state) => state);
 
   const {
     register,
@@ -23,7 +25,10 @@ function EditCategory() {
     const getCategory = async () => {
       const response = await axios({
         method: "GET",
-        url: `${process.env.REACT_APP_API_URL}/admin/category/${params.id}`,
+        url: `${process.env.REACT_APP_API_URL}/admin/categories/${params.id}`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
       });
 
       setCategory(response.data.category);
@@ -39,7 +44,10 @@ function EditCategory() {
     try {
       const response = await axios({
         method: "PATCH",
-        url: `${process.env.REACT_APP_API_URL}/admin/category/${category.id}`,
+        url: `${process.env.REACT_APP_API_URL}/admin/categories/${category.id}`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
         data: {
           name,
           description,
@@ -64,7 +72,7 @@ function EditCategory() {
               <div className="col-12 d-flex align-items-center justify-content-center">
                 <div className="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                   <div className="text-center text-md-center mb-4 mt-md-0">
-                    <h1 className="mb-0 h3">Edit</h1>
+                    <h1 className="mb-0 h3">{category.name}</h1>
                   </div>
 
                   <form action="#" className="mt-4 text-start" onSubmit={handleSubmit(onSubmit)}>

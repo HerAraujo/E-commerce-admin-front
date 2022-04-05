@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { format } from "date-fns";
 import parseISO from "date-fns/parseISO";
+import { useSelector } from "react-redux";
 
 function OrderEditStatusForm() {
   const params = useParams();
@@ -10,12 +11,16 @@ function OrderEditStatusForm() {
   const [order, setOrder] = React.useState();
   const [orderStatusId, setOrderStatusId] = React.useState();
   const navigate = useNavigate();
+  const adminStore = useSelector((state) => state);
 
   useEffect(() => {
     const getStatus = async () => {
       const response = await axios({
         method: "GET",
         url: `${process.env.REACT_APP_API_URL}/admin/statuses`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
       });
 
       setStatuses(response.data);
@@ -25,6 +30,9 @@ function OrderEditStatusForm() {
       const response = await axios({
         method: "GET",
         url: `${process.env.REACT_APP_API_URL}/admin/orders/${params.id}`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
       });
 
       setOrder(response.data);
@@ -39,6 +47,9 @@ function OrderEditStatusForm() {
     const response = await axios({
       method: "PUT",
       url: `${process.env.REACT_APP_API_URL}/admin/orders/${params.id}`,
+      headers: {
+        Authorization: `Bearer ${adminStore.token}`,
+      },
       data: {
         orderStatusId: orderStatusId,
       },

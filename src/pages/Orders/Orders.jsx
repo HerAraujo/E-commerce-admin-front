@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Orders() {
   const [orders, setOrders] = useState([]);
+  const adminStore = useSelector((state) => state);
 
   useEffect(() => {
     const getOrders = async () => {
       const response = await axios({
         method: "GET",
         url: `${process.env.REACT_APP_API_URL}/admin/orders`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
       });
 
       setOrders(response.data);

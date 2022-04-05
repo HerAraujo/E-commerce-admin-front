@@ -2,14 +2,19 @@ import React, { useEffect, useState } from "react";
 import "./Images.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Images() {
   const [images, setImages] = useState(null);
+  const adminStore = useSelector((state) => state);
 
   const getImages = async () => {
     const response = await axios({
       method: "GET",
       url: `${process.env.REACT_APP_API_URL}/admin/images`,
+      headers: {
+        Authorization: `Bearer ${adminStore.token}`,
+      },
     });
     setImages(response.data);
   };
@@ -22,6 +27,9 @@ function Images() {
     const response = await axios({
       method: "DELETE",
       url: `${process.env.REACT_APP_API_URL}/admin/images/${id}`,
+      headers: {
+        Authorization: `Bearer ${adminStore.token}`,
+      },
     });
     getImages();
   };

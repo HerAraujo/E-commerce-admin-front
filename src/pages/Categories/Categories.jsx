@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Categories() {
   const [categories, setCategories] = useState([]);
+  const adminStore = useSelector((state) => state);
 
   useEffect(() => {
     const getCategories = async () => {
       const response = await axios({
         method: "GET",
-        url: `${process.env.REACT_APP_API_URL}/admin/category`,
+        url: `${process.env.REACT_APP_API_URL}/admin/categories`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
       });
       setCategories(response.data);
     };
 
     getCategories();
-  }, [categories]);
+  }, []);
 
   const deleteCategory = async (categoryId) => {
     await axios({
       method: "DELETE",
-      url: `${process.env.REACT_APP_API_URL}/admin/category/${categoryId}`,
+      url: `${process.env.REACT_APP_API_URL}/admin/categories/${categoryId}`,
+      headers: {
+        Authorization: `Bearer ${adminStore.token}`,
+      },
     });
   };
 
