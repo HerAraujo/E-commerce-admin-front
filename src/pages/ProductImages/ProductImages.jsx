@@ -15,7 +15,7 @@ function ProductImages() {
     const getProduct = async () => {
       const response = await axios({
         method: "GET",
-        url: `${process.env.REACT_APP_API_URL}/products/${params.id}`,
+        url: `${process.env.REACT_APP_API_URL}/products/${params.slug}`,
         headers: {
           Authorization: `Bearer ${adminStore.token}`,
         },
@@ -72,7 +72,7 @@ function ProductImages() {
     try {
       const response = await axios({
         method: "POST",
-        url: `${process.env.REACT_APP_API_URL}/admin/products/${params.id}/images`,
+        url: `${process.env.REACT_APP_API_URL}/admin/products/${product.id}/images`,
         headers: {
           Authorization: `Bearer ${adminStore.token}`,
         },

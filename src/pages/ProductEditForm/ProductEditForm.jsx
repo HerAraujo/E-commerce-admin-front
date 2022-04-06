@@ -26,7 +26,7 @@ function ProductEditForm() {
     const getProduct = async () => {
       const response = await axios({
         method: "GET",
-        url: `${process.env.REACT_APP_API_URL}/products/${params.id}`,
+        url: `${process.env.REACT_APP_API_URL}/products/${params.slug}`,
         headers: {
           Authorization: `Bearer ${adminStore.token}`,
         },

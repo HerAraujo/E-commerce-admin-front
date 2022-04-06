@@ -107,7 +107,7 @@ function Products() {
                     <span> {product.id}</span>
                   </td>
                   <td>
-                    <Link to={`/edit-product/${product.id}`}>
+                    <Link to={`/edit-product/${product.slug}`}>
                       <span className="fw-normal">{product.name}</span>
                     </Link>
                   </td>
@@ -126,7 +126,7 @@ function Products() {
                   <td>
                     <Link
                       className="btn btn-sm btn-gray-800 d-inline-flex align-items-center"
-                      to={`/edit-product-images/${product.id}`}
+                      to={`/edit-product-images/${product.slug}`}
                     >
                       Images
                     </Link>

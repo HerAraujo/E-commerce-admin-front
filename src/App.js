@@ -35,7 +35,7 @@ function App() {
         <Route path="/images" element={<PrivateRoute element={<Images />} />} />
         <Route path="/upload-image" element={<PrivateRoute element={<ImageUploadForm />} />} />
         <Route
-          path="/edit-product-images/:id"
+          path="/edit-product-images/:slug"
           element={<PrivateRoute element={<ProductImages />} />}
         />
         <Route path="/products" element={<PrivateRoute element={<Products />} />} />
@@ -43,7 +43,10 @@ function App() {
         <Route path="/newCategory" element={<PrivateRoute element={<NewCategory />} />} />
         <Route path="/edit-category/:id" element={<PrivateRoute element={<EditCategory />} />} />
         <Route path="/create-product" element={<PrivateRoute element={<ProductCreateFrom />} />} />
-        <Route path="/edit-product/:id" element={<PrivateRoute element={<ProductEditFrom />} />} />
+        <Route
+          path="/edit-product/:slug"
+          element={<PrivateRoute element={<ProductEditFrom />} />}
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
