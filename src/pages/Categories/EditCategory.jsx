@@ -86,16 +86,15 @@ function EditCategory() {
                           id="name"
                           name="name"
                           autoFocus
-                          value={name}
+                          defaultValue={name}
                           onChange={(ev) => {
                             setName(ev.target.value);
-                            setSlug(slugify(ev.target.value));
+                            setSlug(slugify(ev.target.value.toLowerCase()));
                             setApiStatus(0);
                           }}
                         />
                       </div>
                       {errors.name && name.length === 0 && (
-                        // {errors.name && (
                         <span className="text-danger fw-bold mt-1 small">Name is required</span>
                       )}
 
@@ -113,7 +112,7 @@ function EditCategory() {
                           id="slug"
                           className="form-control"
                           name="slug"
-                          value={slug}
+                          defaultValue={slug}
                           disabled
                         />
                       </div>
@@ -127,7 +126,7 @@ function EditCategory() {
                           id="description"
                           name="description"
                           rows="4"
-                          value={description}
+                          defaultValue={description}
                           onChange={(ev) => setDescription(ev.target.value)}
                         ></textarea>
                         {errors.description && description.length === 0 && (

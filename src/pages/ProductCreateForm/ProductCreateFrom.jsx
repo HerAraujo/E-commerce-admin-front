@@ -90,7 +90,7 @@ function ProductFrom() {
                               value={name}
                               onChange={(ev) => {
                                 setName(ev.target.value);
-                                setSlug(slugify(ev.target.value));
+                                setSlug(slugify(ev.target.value.toLowerCase()));
                                 setApiStatus(0);
                               }}
                             />
