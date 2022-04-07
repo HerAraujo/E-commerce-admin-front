@@ -16,23 +16,24 @@ function UpdateAdmin() {
 
   useEffect(() => {
     const getAdmin = async () => {
-      try {
-        const response = await axios({
-          method: "GET",
-          url: `${process.env.REACT_APP_API_URL}/admin/admin/${params.id}`,
-          headers: {
-            Authorization: `Bearer ${adminStore.token}`,
-          },
-        });
-        setFirstname(response.data.firstname);
-        setLastname(response.data.lastname);
-        setEmail(response.data.email);
-      } catch (err) {
-        console.log(err);
-        setApiStatus(err.response.status);
-      }
+      const response = await axios({
+        method: "GET",
+        url: `${process.env.REACT_APP_API_URL}/admin/admin/${params.id}`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
+      });
+      setFirstname(response.data.firstname);
+      setLastname(response.data.lastname);
+      setEmail(response.data.email);
     };
-    getAdmin();
+
+    try {
+      getAdmin();
+    } catch (err) {
+      console.log(err);
+      setApiStatus(err.response.status);
+    }
   }, []);
 
   const updateAdmin = async (event) => {
