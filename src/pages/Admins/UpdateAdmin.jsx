@@ -28,16 +28,7 @@ function UpdateAdmin() {
       setEmail(response.data.email);
     };
 
-    console.log("api status before");
-    try {
-      getAdmin();
-    } catch (err) {
-      console.log(err);
-      setApiStatus(err.response.status);
-    }
-
-    console.log("api status");
-    console.log(apiStatus);
+    getAdmin();
   }, []);
 
   const updateAdmin = async (event) => {
@@ -56,7 +47,13 @@ function UpdateAdmin() {
         },
       });
       navigate("/admins");
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+      setApiStatus(err.response.status);
+    }
+
+    console.log("api status");
+    console.log(apiStatus);
   };
 
   return (
