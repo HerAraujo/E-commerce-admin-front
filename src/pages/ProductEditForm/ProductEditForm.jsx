@@ -201,24 +201,40 @@ function ProductEditForm() {
                           </label>
                           {categories && (
                             <select
-                              {...register("categoryId", { required: true })}
+                              {...register("categoryId", {
+                                required: true,
+                              })}
                               className="form-select"
                               id="category"
                               name="categoryId"
                               aria-label="Default select example"
                             >
+                              {!categories.some(
+                                (category) => category.id === product.categoryId,
+                              ) && (
+                                <option selected key={0} value={product.categoryId}>
+                                  {`${product.category.name} (no active)`}
+                                </option>
+                              )}
+
                               {categories &&
-                                categories.map((category) =>
-                                  category.id === product.categoryId ? (
-                                    <option selected key={category.id} value={category.id}>
-                                      {category.name}
-                                    </option>
-                                  ) : (
+                              categories.some((category) => category.id === product.categoryId)
+                                ? categories.map((category) =>
+                                    category.id === product.categoryId ? (
+                                      <option selected key={category.id} value={category.id}>
+                                        {category.name}
+                                      </option>
+                                    ) : (
+                                      <option key={category.id} value={category.id}>
+                                        {category.name}
+                                      </option>
+                                    ),
+                                  )
+                                : categories.map((category) => (
                                     <option key={category.id} value={category.id}>
                                       {category.name}
                                     </option>
-                                  ),
-                                )}
+                                  ))}
                             </select>
                           )}
                           {errors.categoryId && (
