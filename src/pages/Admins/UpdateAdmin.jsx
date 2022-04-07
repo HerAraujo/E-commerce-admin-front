@@ -12,18 +12,24 @@ function UpdateAdmin() {
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
 
+  const [apiStatus, setApiStatus] = React.useState();
+
   useEffect(() => {
     const getAdmin = async () => {
-      const response = await axios({
-        method: "GET",
-        url: `${process.env.REACT_APP_API_URL}/admin/admin/${params.id}`,
-        headers: {
-          Authorization: `Bearer ${adminStore.token}`,
-        },
-      });
-      setFirstname(response.data.firstname);
-      setLastname(response.data.lastname);
-      setEmail(response.data.email);
+      try {
+        const response = await axios({
+          method: "GET",
+          url: `${process.env.REACT_APP_API_URL}/admin/admin/${params.id}`,
+          headers: {
+            Authorization: `Bearer ${adminStore.token}`,
+          },
+        });
+        setFirstname(response.data.firstname);
+        setLastname(response.data.lastname);
+        setEmail(response.data.email);
+      } catch (err) {
+        setApiStatus(err.response.status);
+      }
     };
     getAdmin();
   }, []);
@@ -107,6 +113,9 @@ function UpdateAdmin() {
                 required
               />
             </div>
+            {apiStatus === 409 && (
+              <div className="text-danger fw-bold mt-1 small">Email already exists</div>
+            )}
           </div>
           <div className="d-grid">
             <button type="submit" className="btn btn-gray-800">

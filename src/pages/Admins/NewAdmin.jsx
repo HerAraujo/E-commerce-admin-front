@@ -9,24 +9,30 @@ function NewAdmin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const adminStore = useSelector((state) => state);
+  const [apiStatus, setApiStatus] = React.useState();
 
   const navigate = useNavigate();
   const createAdmin = async (event) => {
     event.preventDefault();
-    await axios({
-      method: "POST",
-      url: `${process.env.REACT_APP_API_URL}/admin`,
-      headers: {
-        Authorization: `Bearer ${adminStore.token}`,
-      },
-      data: {
-        firstname: firstname,
-        lastname: lastname,
-        email: email,
-        password: password,
-      },
-    });
-    navigate("/admins");
+
+    try {
+      await axios({
+        method: "POST",
+        url: `${process.env.REACT_APP_API_URL}/admin`,
+        headers: {
+          Authorization: `Bearer ${adminStore.token}`,
+        },
+        data: {
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
+          password: password,
+        },
+      });
+      navigate("/admins");
+    } catch (err) {
+      setApiStatus(err.response.status);
+    }
   };
   return (
     <div className="col-12 d-flex align-items-center justify-content-center">
@@ -88,6 +94,9 @@ function NewAdmin() {
                 required
               />
             </div>
+            {apiStatus === 409 && (
+              <div className="text-danger fw-bold mt-1 small">Email already exists</div>
+            )}
           </div>
 
           <div className="form-group">
