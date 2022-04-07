@@ -28,6 +28,7 @@ function UpdateAdmin() {
         setLastname(response.data.lastname);
         setEmail(response.data.email);
       } catch (err) {
+        console.log(err);
         setApiStatus(err.response.status);
       }
     };
