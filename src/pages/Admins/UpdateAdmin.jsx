@@ -48,6 +48,7 @@ function UpdateAdmin() {
       });
       navigate("/admins");
     } catch (err) {
+      console.log("en catch ");
       console.log(err);
       setApiStatus(err.response.status);
     }
